@@ -55,6 +55,13 @@ $mobile-view-main-border:3px solid #898787;
       left: 5px;
       border-radius: 5px;
       top: 70px;
+      &-content{
+        @extend .absolute-relative-center;
+        width: 98%;
+        height: 99%;
+        background-color: white;
+        border-radius: 2px;
+      }
     }
     &-button{
       height: 50px;
