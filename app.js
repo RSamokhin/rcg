@@ -9,6 +9,7 @@ var co = require('co');
 var sql = require('co-mssql');
 
 app.use(route.get('/news', news.list));
+app.use(route.get('/news/:id', news.show));
 
 app.use(serve(path.join(__dirname, 'public')));
 
@@ -17,7 +18,16 @@ if (!module.parent)
     var config = require('./config');
 
     co(function * (){
-        yield sql.connect(config.database);
+
+        try
+        {
+            yield sql.connect(config.database);
+        }
+        catch(e)
+        {
+            console.log(e.message);
+            return;
+        }
 
         app.listen(1337);
         console.log('listening on port 1337');
