@@ -1,0 +1,86 @@
+$mobile-view-main-border:3px solid #898787;
+.mobile-view {
+  &-main-container {
+    border: $mobile-view-main-border;
+    width: 300px;
+    height: 600px;
+    border-radius: 18px;
+    background-color: #F9F9F9;
+    @extend .absolute-relative-center;
+    &-topbutton{
+      border: $mobile-view-main-border;
+      width: 45px;
+      height: 2px;
+      position: absolute;
+      top: -8px;
+      right: 20px;
+      border-radius: 5px;
+    }
+    &-earsensor{
+      width: 35px;
+      height: 8px;
+      position: absolute;
+      top: 10px;
+      background-color: black;
+      left: 0;
+      right: 0;
+      margin: auto;
+      border-radius: 5px;
+    }
+    &-camera{
+      width: 12px;
+      height: 12px;
+      position: absolute;
+      top: 28px;
+      background-color: #000;
+      border-radius: 50%;
+      left: 100px;
+    }
+    &-dynamic{
+      width: 55px;
+      height: 6px;
+      position: absolute;
+      top: 31px;
+      background-color: #6A6980;
+      left: 0;
+      right: 0;
+      margin: auto;
+      border-radius: 5px;
+    }
+    &-screen{
+      width: 290px;
+      height: 460px;
+      background-color: black;
+      position: relative;
+      left: 5px;
+      border-radius: 5px;
+      top: 70px;
+      &-content{
+        @extend .absolute-relative-center;
+        width: 98%;
+        height: 99%;
+        background-color: white;
+        border-radius: 2px;
+      }
+    }
+    &-button{
+      height: 50px;
+      width: 50px;
+      border: 1px solid rgb(129, 127, 127);
+      position: absolute;
+      margin: auto;
+      right: 0;
+      left: 0;
+      bottom: 10px;
+      border-radius: 50%;
+      &-square{
+        height: 15px;
+        width: 15px;
+        border: 2px solid #817f7f;
+        border-radius: 5px;
+        @extend .absolute-relative-center;
+        margin: auto;
+      }
+    }
+  }
+}
