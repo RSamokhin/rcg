@@ -5,15 +5,16 @@
     "scripts": {
         "start": "node --harmony app.js"
     },
-  "dependencies": {
+    "dependencies": {
         "koa": "^0.18.1",
         "koa-route": "^2.4.0",
         "koa-static": "^1.4.9",
         "co": "*",
         "mssql": "*",
-        "co-mssql": "*"
-  },
-  "devDependencies": {
+        "co-mssql": "*",
+        "co-body": "*"
+    },
+    "devDependencies": {
 
-  }
+    }
 }

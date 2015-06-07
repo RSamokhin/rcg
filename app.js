@@ -10,6 +10,7 @@ var sql = require('co-mssql');
 
 app.use(route.get('/news', news.list));
 app.use(route.get('/news/:id', news.show));
+app.use(route.put('/news', news.add));
 
 app.use(serve(path.join(__dirname, 'public')));
 
