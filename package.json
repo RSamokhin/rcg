@@ -6,15 +6,15 @@
         "start": "node --harmony app.js"
     },
     "dependencies": {
+        "co": "*",
+        "co-body": "*",
+        "co-mssql": "*",
         "koa": "^0.18.1",
         "koa-route": "^2.4.0",
         "koa-static": "^1.4.9",
-        "co": "*",
         "mssql": "*",
-        "co-mssql": "*",
-        "co-body": "*"
+        "sequelize": "^3.2.0",
+        "tedious": "^1.11.0"
     },
-    "devDependencies": {
-
-    }
+    "devDependencies": {}
 }

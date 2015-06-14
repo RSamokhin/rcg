@@ -6,7 +6,6 @@ var koa = require('koa');
 var path = require('path');
 var app = module.exports = koa();
 var co = require('co');
-var sql = require('co-mssql');
 
 app.use(route.get('/news', news.list(false)));
 app.use(route.get('/news/:id', news.show(false)));
@@ -19,13 +18,13 @@ app.use(serve(path.join(__dirname, 'public')));
 
 if (!module.parent) 
 {
-    var config = require('./config');
+    var models = require("./models");
 
     co(function * (){
 
         try
         {
-            yield sql.connect(config.database);
+            yield models.sequelize.authenticate();
         }
         catch(e)
         {

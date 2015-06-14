@@ -1,8 +1,10 @@
 
-var sql = require('co-mssql');
 var parse = require('co-body');
 
+var models = require("../models");
+
 module.exports.list = function(isVacancy) {
+
     isVacancy = !!isVacancy;
 
     return function * () {
@@ -12,24 +14,14 @@ module.exports.list = function(isVacancy) {
         count = Math.max(count, 1);
         start = Math.max(start, 0);
 
-        var ps = new sql.PreparedStatement();
-        ps.input('start', sql.Int);
-        ps.input('count', sql.Int);
-        ps.input('isVacancy', sql.Bit);
-
-        yield ps.prepare(
-            'SELECT * FROM dbo.news ' +
-            'WHERE is_vacancy = @isVacancy ' +
-            'ORDER By datecreated ' +
-            'OFFSET @start ROWS FETCH NEXT @count ROWS ONLY;');
-        var recordset = yield ps.execute({
-            start: start,
-            count: count,
-            isVacancy: isVacancy
+        var news = yield models.News.findAll({
+            limit: count,
+            offset: start,
+            where: {
+                isVacancy: isVacancy
+            }
         });
-        yield ps.unprepare();
-
-        this.body = recordset;
+        this.body = news.map(news => news.toJSON());
     };
 };
 
@@ -38,25 +30,18 @@ module.exports.show = function(isVacancy) {
 
     return function * (newsId) {
 
-        var ps = new sql.PreparedStatement();
-        ps.input('newsId', sql.Int);
-        ps.input('isVacancy', sql.Bit);
-        yield ps.prepare(
-            'SELECT * FROM dbo.news ' +
-            'WHERE n_id = @newsId AND is_vacancy = @isVacancy');
-        var news = yield ps.execute({
-            newsId: newsId | 0,
-            isVacancy: isVacancy
+        var news = yield models.News.findOne({
+            where: {
+                id: newsId | 0,
+                isVacancy: isVacancy
+            }
         });
-        yield ps.unprepare();
-
-        if (!news.length)
+        if (news === null)
         {
             this.status = 404;
             return;
         }
-
-        this.body = news[0];
+        this.body = news.toJSON();
     };
 };
 
@@ -69,40 +54,18 @@ module.exports.add = function(isVacancy) {
 
         var text = news['text'] || '';
         var title = news['title'] || '';
-        var shortText = news['short_text'] || '';
+        var shortText = news['shortText'] || '';
 
-        var ps = new sql.PreparedStatement();
-        ps.input('newsId', sql.Int);
-        ps.input('authorId', sql.VarChar(50));
-        ps.input('dateCreated', sql.DateTime2(0));
-        ps.input('datePubliched', sql.DateTime2(0));
-        ps.input('title', sql.Text);
-        ps.input('text', sql.Text);
-        ps.input('shortText', sql.Text);
-        ps.input('isVacancy', sql.Bit);
-        yield ps.prepare(
-            'INSERT rcg.dbo.news ' +
-            '(n_id, author_id, datecreated, datepubliched, title, text, short_text, is_vacancy) ' +
-            'VALUES (@newsId, @authorId, @dateCreated, @datePubliched, @title, @text, @shortText, @isVacancy)');
-        try {
-            yield ps.execute({
-                newsId: (Math.random() * 100000) | 0,
-                authorId: '654654',
-                dateCreated: new Date(),
-                datePubliched: new Date(),
-                title: '' + title,
-                text: '' + text,
-                shortText: '' + shortText,
-                isVacancy: isVacancy
-            });
-            this.status = 200;
-        }
-        catch (e) {
-            this.status = 500;
-            console.log(e.message);
-        }
-        finally {
-            yield ps.unprepare();
-        }
+        yield models.News.create({
+            id: (Math.random() * 100000) | 0,
+            authorId: '654654',
+            dateCreated: new Date(),
+            datePublished: new Date(),
+            title: '' + title,
+            text: '' + text,
+            shortText: '' + shortText,
+            isVacancy: isVacancy
+        });
+        this.status = 200;
     };
 };
