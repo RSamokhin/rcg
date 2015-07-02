@@ -16,11 +16,15 @@ module.exports.list = function() {
         var news = yield models.News.findAll({
             limit: count,
             offset: start,
+            where: {
+                is_vacancy: 0,
+                is_project: 0
+            }
         });
         this.body = news.map(news => news.toJSON());
     };
 };
-
+/*
 module.exports.show = function() {
 
     return function * (newsId) {
@@ -37,8 +41,8 @@ module.exports.show = function() {
         }
         this.body = news.toJSON();
     };
-};
-
+};*/
+/*
 module.exports.add = function(isVacancy) {
     isVacancy = !!isVacancy;
 
@@ -63,3 +67,4 @@ module.exports.add = function(isVacancy) {
         this.status = 200;
     };
 };
+    */
