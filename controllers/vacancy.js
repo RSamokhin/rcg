@@ -4,7 +4,7 @@ var parse = require('co-body');
 var models = require("../models");
 
 module.exports.listVacancies = function() {
-    return function * () {
+    /*return function * () {
         var start = this.query['start'] | 0;
         var count = this.query['count'] !== undefined ? (this.query['count'] | 0) : 10;
         count = Math.max(count, 1);
@@ -19,5 +19,10 @@ module.exports.listVacancies = function() {
             }
         });
         this.body = vacancy.map(vacancy => vacancy.toJSON());
-    };
+    };*/
+    sequelize.query('select * from news`').success(function(rows) {
+        this.body = rows;
+        //console.log(JSON.stringify(rows))
+    })
 };
+
