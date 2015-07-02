@@ -3,9 +3,8 @@ var parse = require('co-body');
 
 var models = require("../models");
 
-module.exports.list = function(isVacancy) {
+module.exports.list = function() {
 
-    isVacancy = !!isVacancy;
 
     return function * () {
 
@@ -17,23 +16,18 @@ module.exports.list = function(isVacancy) {
         var news = yield models.News.findAll({
             limit: count,
             offset: start,
-            where: {
-                isVacancy: isVacancy
-            }
         });
         this.body = news.map(news => news.toJSON());
     };
 };
 
-module.exports.show = function(isVacancy) {
-    isVacancy = !!isVacancy;
+module.exports.show = function() {
 
     return function * (newsId) {
 
         var news = yield models.News.findOne({
             where: {
-                id: newsId | 0,
-                isVacancy: isVacancy
+                id: newsId | 0
             }
         });
         if (news === null)
