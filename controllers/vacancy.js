@@ -3,6 +3,7 @@ var parse = require('co-body');
 
 var models = require("../models");
 
+
 module.exports.listVacancies = function() {
     /*return function * () {
         var start = this.query['start'] | 0;
@@ -20,7 +21,7 @@ module.exports.listVacancies = function() {
         });
         this.body = vacancy.map(vacancy => vacancy.toJSON());
     };*/
-    sequelize.query('select * from news`').success(function(rows) {
+    Sequelize.query('select * from news`').success(function(rows) {
         this.body = rows;
         //console.log(JSON.stringify(rows))
     })
