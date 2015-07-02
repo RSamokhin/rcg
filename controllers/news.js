@@ -13,7 +13,7 @@ module.exports.list = function() {
             limit: count,
             offset: start,
             where: {
-                is_vacancy: 1,
+                is_vacancy: 0,
                 is_project: 0,
                 is_draft:0
             }
