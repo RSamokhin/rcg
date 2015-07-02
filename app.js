@@ -7,7 +7,7 @@ var path = require('path');
 var app = module.exports = koa();
 var co = require('co');
 
-app.use(route.get('/news', news.list()));
+app.use(route.get('/news', news.listNews()));
 /*app.use(route.get('/news/:id', news.show(false)));
 app.use(route.put('/news', news.add(false)));*/
 /*app.use(route.get('/vacancy', news.list(true)));

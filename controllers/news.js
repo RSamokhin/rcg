@@ -3,7 +3,7 @@ var parse = require('co-body');
 
 var models = require("../models");
 
-module.exports.list = function() {
+module.exports.listNews = function() {
     return function * () {
         var start = this.query['start'] | 0;
         var count = this.query['count'] !== undefined ? (this.query['count'] | 0) : 10;
