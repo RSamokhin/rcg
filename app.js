@@ -1,5 +1,6 @@
 
 var news = require('./controllers/news');
+var vacancy = require('./controllers/vacancy');
 var serve = require('koa-static');
 var route = require('koa-route');
 var koa = require('koa');
