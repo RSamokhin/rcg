@@ -3,37 +3,41 @@ var parse = require('co-body');
 
 var models = require("../models");
 
-module.exports.list = function(isVacancy) {
-
-    isVacancy = !!isVacancy;
-
+module.exports.listNews = function() {
     return function * () {
-
         var start = this.query['start'] | 0;
         var count = this.query['count'] !== undefined ? (this.query['count'] | 0) : 10;
         count = Math.max(count, 1);
         start = Math.max(start, 0);
-
         var news = yield models.News.findAll({
             limit: count,
             offset: start,
             where: {
-                isVacancy: isVacancy
+                is_vacancy: 0,
+                is_project: 0,
+                is_draft:0
             }
         });
         this.body = news.map(news => news.toJSON());
     };
 };
 
-module.exports.show = function(isVacancy) {
-    isVacancy = !!isVacancy;
+
+
+
+
+
+
+
+
+/*
+module.exports.show = function() {
 
     return function * (newsId) {
 
         var news = yield models.News.findOne({
             where: {
-                id: newsId | 0,
-                isVacancy: isVacancy
+                id: newsId | 0
             }
         });
         if (news === null)
@@ -43,8 +47,8 @@ module.exports.show = function(isVacancy) {
         }
         this.body = news.toJSON();
     };
-};
-
+};*/
+/*
 module.exports.add = function(isVacancy) {
     isVacancy = !!isVacancy;
 
@@ -69,3 +73,4 @@ module.exports.add = function(isVacancy) {
         this.status = 200;
     };
 };
+    */
