@@ -2,6 +2,7 @@
 var parse = require('co-body');
 
 var models = require("../models");
+var Sequelize = require('sequelize');
 
 
 module.exports.listVacancies = function() {
