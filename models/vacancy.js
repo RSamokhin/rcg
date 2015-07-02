@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    var Vacancies = sequelize.define("Vacancies", {
+    var Vacancies = sequelize.define("News", {
         id: {
             type: DataTypes.INTEGER,
             field: 'n_id'
