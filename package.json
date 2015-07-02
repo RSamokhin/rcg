@@ -3,12 +3,14 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "start": "node --harmony app.js"
+        "start": "forever start -c 'node --harmony' app.js"
     },
     "dependencies": {
         "co": "*",
         "co-body": "*",
         "co-mssql": "*",
+        "forever": "*",
+        "forever-monitor": "*",
         "koa": "^0.18.1",
         "koa-route": "^2.4.0",
         "koa-static": "^1.4.9",
