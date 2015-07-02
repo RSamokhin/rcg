@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "start": "forever start -c 'node --harmony' app.js"
+        "start": "forever start -c 'node --harmony' app.js  --watchDirectory ./*"
     },
     "dependencies": {
         "co": "*",
