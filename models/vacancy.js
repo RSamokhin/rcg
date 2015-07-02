@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    var Vacancies = sequelize.define("News", {
+    var Vacancies = sequelize.define("Vacancies", {
         id: {
             type: DataTypes.INTEGER,
             field: 'n_id'
@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
         picture: DataTypes.STRING,
         picturePreview: {
             type: DataTypes.STRING,
-            field: 'picture_preview'
+            field: 'preview_picture'
         },
         shortText: {
             type: DataTypes.STRING,
