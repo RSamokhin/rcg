@@ -18,10 +18,29 @@ module.exports = function(sequelize, DataTypes) {
         datePublished: {
             type: DataTypes.DATE,
             field: 'datepubliched'
+        },
+        dateCreated: {
+            type: DataTypes.DATE,
+            field: 'datecreated'
+        },
+        isVacancy: {
+            type: DataTypes.BOOLEAN,
+            field: 'is_vacancy'
+        },
+        isDraft: {
+            type: DataTypes.BOOLEAN,
+            field: 'is_draft'
+        },
+        isProject: {
+            type: DataTypes.BOOLEAN,
+            field: 'is_project'
         }
     }, {
         classMethods: {
             associate: function(models) {
+                News.hasOne(models.Vacancy, {
+                    foreignKey: 'newsId'
+                });
             }
         }
     });

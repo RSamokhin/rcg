@@ -1,33 +1,24 @@
 module.exports = function(sequelize, DataTypes) {
-    var Vacancies = sequelize.define("Vacancies", {
-        id: {
+    var Vacancy = sequelize.define("Vacancy", {
+        newsId: {
             type: DataTypes.INTEGER,
-            field: 'n_id'
+            field: 'news_id',
+            primaryKey: true
         },
-        authorId: {
-            type: DataTypes.STRING,
-            field: 'author_id'
+        isMale: {
+            type: DataTypes.BOOLEAN,
+            field: 'is_male'
         },
-        title: DataTypes.STRING,
-        picture: DataTypes.STRING,
-        picturePreview: {
-            type: DataTypes.STRING,
-            field: 'preview_picture'
-        },
-        shortText: {
-            type: DataTypes.STRING,
-            field: 'short_text'
-        },
-        text: DataTypes.STRING,
-        datePublished: {
-            type: DataTypes.DATE,
-            field: 'datepubliched'
-        }
+        money: DataTypes.STRING(1)
     }, {
         classMethods: {
             associate: function(models) {
+                Vacancy.belongsTo(models.News, {
+                    foreignKey: 'newsId'
+                });
             }
-        }
+        },
+        tableName: 'vacancy'
     });
-    return Vacancies;
+    return Vacancy;
 };
