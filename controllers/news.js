@@ -38,6 +38,16 @@ module.exports.show = function * (newsId) {
     this.body = news.toJSON();
 };
 
+module.exports.showComments = function * (newsId) {
+
+    var newsComments = yield models.NewsComments.findAll({
+        where: {
+            newsId: newsId | 0
+        }
+    });
+    this.body = newsComments.map(newsComment => newsComment.toJSON());
+};
+
 module.exports.add = function * () {
 
     var news = yield parse(this);

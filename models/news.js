@@ -41,6 +41,9 @@ module.exports = function(sequelize, DataTypes) {
                 News.hasOne(models.Vacancy, {
                     foreignKey: 'newsId'
                 });
+                News.hasMany(models.NewsComments, {
+                    foreignKey: 'newsId'
+                });
             }
         }
     });

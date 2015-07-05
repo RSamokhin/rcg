@@ -11,6 +11,7 @@ var co = require('co');
 app.use(route.get('/news', news.listNews));
 app.use(route.get('/vacancy', vacancy.listVacancies));
 app.use(route.get('/news/:id', news.show));
+app.use(route.get('/news/:id/comments', news.showComments));
 app.use(route.put('/news', news.add));
 app.use(route.get('/vacancy/:id', vacancy.show));
 app.use(route.put('/vacancy', vacancy.add));
