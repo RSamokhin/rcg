@@ -17,7 +17,8 @@ module.exports = function(sequelize, DataTypes) {
         endTime: {
             type: DataTypes.STRING,
             field: 'end_time'
-        }
+        },
+        city:DataTypes.STRING
     }, {
         classMethods: {
             associate: function(models) {
