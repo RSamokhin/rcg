@@ -21,9 +21,13 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.DATE,
             field: 'TIMESTAMP'
         },
-        commentType: {
-            type: DataTypes.STRING(1),
-            field: 'comment_type'
+        commentStatus: {
+            type: DataTypes.STRING,
+            field: 'comment_status'
+        },
+        adminComment: {
+            type: DataTypes.STRING,
+            field: 'admin_comment'
         }
     }, {
         classMethods: {
