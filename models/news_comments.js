@@ -28,6 +28,10 @@ module.exports = function(sequelize, DataTypes) {
         adminComment: {
             type: DataTypes.STRING,
             field: 'admin_comment'
+        },
+        commentType: {
+            type: DataTypes.STRING,
+            field: 'comment_type'
         }
     }, {
         classMethods: {
