@@ -9,7 +9,16 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.BOOLEAN,
             field: 'is_male'
         },
-        money: DataTypes.STRING(1)
+        money: DataTypes.STRING,
+        workTime: {
+            type: DataTypes.STRING,
+            field: 'work_time'
+        },
+        endTime: {
+            type: DataTypes.STRING,
+            field: 'end_time'
+        },
+        city:DataTypes.STRING
     }, {
         classMethods: {
             associate: function(models) {
