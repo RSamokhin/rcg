@@ -28,7 +28,9 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         classMethods: {
             associate: function(models) {
-
+                NewsComments.belongsTo(models.News, {
+                    foreignKey: 'newsId'
+                });
             }
         },
         tableName: 'news_comments'

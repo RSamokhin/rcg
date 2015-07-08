@@ -23,6 +23,43 @@ module.exports.listVacancies = function * () {
     this.body = vacancies.map(vacancy => vacancy.toJSON());
 };
 
+module.exports.listVacancyReplies = function * (newsId) {
+    var start = this.query['start'] | 0;
+    var count = this.query['count'] !== undefined ? (this.query['count'] | 0) : 10;
+    count = Math.max(count, 1);
+    start = Math.max(start, 0);
+
+    var newsComments = yield models.NewsComments.findAll({
+        limit: count,
+        offset: start,
+        where: {
+            newsId: newsId | 0
+        }
+    });
+    this.body = newsComments.map(newsComment => newsComment.toJSON());
+};
+
+module.exports.listReplies = function * (newsId) {
+    var start = this.query['start'] | 0;
+    var count = this.query['count'] !== undefined ? (this.query['count'] | 0) : 10;
+    count = Math.max(count, 1);
+    start = Math.max(start, 0);
+
+    var newsComments = yield models.NewsComments.findAll({
+        limit: count,
+        offset: start,
+        include: [
+            {
+                model: models.News,
+                where: {
+                    isVacancy: true
+                }
+            }
+        ]
+    });
+    this.body = newsComments.map(newsComment => newsComment.toJSON());
+};
+
 module.exports.show = function * (vacancyId) {
 
     var vacancy = yield models.News.findOne({

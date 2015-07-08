@@ -13,7 +13,9 @@ app.use(route.get('/vacancy', vacancy.listVacancies));
 app.use(route.get('/news/:id', news.show));
 app.use(route.get('/news/:id/comments', news.showComments));
 app.use(route.put('/news', news.add));
+app.use(route.get('/vacancy/replies', vacancy.listReplies));
 app.use(route.get('/vacancy/:id', vacancy.show));
+app.use(route.get('/vacancy/:id/replies', vacancy.listVacancyReplies));
 app.use(route.put('/vacancy', vacancy.add));
 
 app.use(serve(path.join(__dirname, 'public')));
