@@ -49,13 +49,14 @@ module.exports.listReplies = function * (newsId) {
     var newsComments = yield models.NewsComments.findAll({
         limit: count,
         offset: start,
+        where:{
+            commentType: 'vacancyReply'
+        },
         include: [
             {
                 model: models.News,
                 where: {
-                    isVacancy: true,
-                    commentType: 'vacancyReply'
-
+                    isVacancy: true
                 }
             }
         ]
