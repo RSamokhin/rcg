@@ -15,10 +15,10 @@ module.exports = function(sequelize, DataTypes) {
             field: 'work_time'
         },
         endTime: {
-            type: DataTypes.STRING,
+            type: DataTypes.DATE,
             field: 'end_time'
         },
-        city:DataTypes.STRING
+        city: DataTypes.STRING
     }, {
         classMethods: {
             associate: function(models) {

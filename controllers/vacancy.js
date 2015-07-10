@@ -84,21 +84,48 @@ module.exports.add = function * () {
     var news = yield parse(this);
 
     var text = news['text'] || '';
+    var rightsJson = news['rightsJson'] || '';
     var title = news['title'] || '';
     var shortText = news['shortText'] || '';
+    var picture = news['picture'] || '';
+    var previewPicture = news['previewPicture'] || '';
+    var authorId = news['authorId'] || '654654';
+    var isDraft = news['isDraft'] || false;
+    var isProject = news['isProject'] || false;
+    var statusId = news['statusId'] || null;
+    var categoryId = news['categoryId'] || null;
+
+    var isMale = news['isMale'] || false;
+    var workTime = news['workTime'] || '';
+    var money = news['money'] || '';
+    var city = news['city'] || '';
+    var endTime = new Date(news['endTime']);
 
     var insertedNews = yield models.News.create({
         id: (Math.random() * 100000) | 0,
-        authorId: '654654',
+        authorId: '' + authorId,
+        statusId: statusId,
+        categoryId: categoryId,
+        rightsJson: '' + rightsJson,
         dateCreated: new Date(),
         datePublished: new Date(),
         title: '' + title,
         text: '' + text,
         shortText: '' + shortText,
-        isVacancy: false
+        picture: '' + picture,
+        previewPicture: '' + previewPicture,
+        isVacancy: true,
+        isProject: isProject,
+        isDraft: !!isDraft
     });
 
-    yield insertedNews.createVacancy();
+    yield insertedNews.createVacancy({
+        isMale: isMale,
+        endTime: isNaN(endTime) ? new Date() : endTime,
+        money: money,
+        city: city,
+        workTime: workTime
+    });
 
     this.status = 200;
 };

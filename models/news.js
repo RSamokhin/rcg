@@ -8,11 +8,27 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             field: 'author_id'
         },
+        statusId: {
+            type: DataTypes.INTEGER,
+            field: 'status_id'
+        },
+        categoryId: {
+            type: DataTypes.INTEGER,
+            field: 'category_id'
+        },
         title: DataTypes.STRING,
         picture: DataTypes.STRING,
         shortText: {
             type: DataTypes.STRING,
             field: 'short_text'
+        },
+        previewPicture: {
+            type: DataTypes.STRING,
+            field: 'preview_picture'
+        },
+        rightsJson: {
+            type: DataTypes.STRING,
+            field: 'rights_json'
         },
         text: DataTypes.STRING,
         datePublished: {
