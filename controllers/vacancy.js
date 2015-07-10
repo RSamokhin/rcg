@@ -33,7 +33,8 @@ module.exports.listVacancyReplies = function * (newsId) {
         limit: count,
         offset: start,
         where: {
-            newsId: newsId | 0
+            newsId: newsId | 0,
+            commentType: 'vacancyReply'
         }
     });
     this.body = newsComments.map(newsComment => newsComment.toJSON());
@@ -48,6 +49,9 @@ module.exports.listReplies = function * (newsId) {
     var newsComments = yield models.NewsComments.findAll({
         limit: count,
         offset: start,
+        where:{
+            commentType: 'vacancyReply'
+        },
         include: [
             {
                 model: models.News,
