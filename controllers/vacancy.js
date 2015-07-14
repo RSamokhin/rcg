@@ -133,3 +133,28 @@ module.exports.add = function * () {
 
     this.status = 200;
 };
+
+module.exports.addVacancyReply = function * (newsId) {
+
+    var replyData = yield parse(this);
+
+    var userId = replyData['userId'] || '';
+    var text = replyData['text'] || '';
+    var commentStatus = replyData['commentStatus'] || '';
+    var adminComment = replyData['adminComment'] || '';
+    var commentType = replyData['commentType'] || '';
+    var timestamp = new Date(replyData['timestamp']);
+
+    var reply = yield models.NewsComments.create({
+        id: (Math.random() * 100000) | 0,
+        newsId: newsId | 0,
+        userId: userId,
+        text: text,
+        commentStatus: commentStatus,
+        adminComment: adminComment,
+        commentType: commentType,
+        timestamp: isNaN(timestamp) ? new Date() : timestamp
+    });
+
+    this.status = 200;
+};

@@ -1,12 +1,14 @@
 
-var news = require('./controllers/news');
-var vacancy = require('./controllers/vacancy');
 var serve = require('koa-static');
 var route = require('koa-route');
 var koa = require('koa');
 var path = require('path');
 var app = module.exports = koa();
 var co = require('co');
+
+var news = require('./controllers/news');
+var vacancy = require('./controllers/vacancy');
+var replies = require('./controllers/replies');
 
 app.use(route.get('/news', news.listNews));
 app.use(route.get('/vacancy', vacancy.listVacancies));
@@ -16,6 +18,9 @@ app.use(route.put('/news', news.add));
 app.use(route.get('/vacancy/replies', vacancy.listReplies));
 app.use(route.get('/vacancy/:id', vacancy.show));
 app.use(route.get('/vacancy/:id/replies', vacancy.listVacancyReplies));
+app.use(route.put('/vacancy/:id/replies', vacancy.addVacancyReply));
+app.use(route.get('/replies/:id', replies.showReply));
+app.use(route.post('/replies/:id', replies.updateReply));
 app.use(route.put('/vacancy', vacancy.add));
 
 app.use(serve(path.join(__dirname, 'public')));
