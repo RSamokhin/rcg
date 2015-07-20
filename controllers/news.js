@@ -83,3 +83,45 @@ module.exports.add = function * () {
     });
     this.status = 200;
 };
+
+module.exports.updateNews = function * (newsId) {
+
+    var data = yield parse(this);
+
+    var news = yield models.News.findOne({
+        where:{
+            id: newsId | 0
+        }
+    });
+
+    if (news === null)
+    {
+        this.status = 404;
+        return;
+    }
+
+    if (data['authorId'] !== undefined)
+        news.authorId = data['authorId'].toString();
+    if (data['text'] !== undefined)
+        news.text = data['text'].toString();
+    if (data['title'] !== undefined)
+        news.title = data['title'].toString();
+    if (data['rightsJson'] !== undefined)
+        news.rightsJson = data['rightsJson'].toString();
+    if (data['shortText'] !== undefined)
+        news.shortText = data['shortText'].toString();
+    if (data['picture'] !== undefined)
+        news.picture = data['picture'].toString();
+    if (data['previewPicture'] !== undefined)
+        news.previewPicture = data['previewPicture'].toString();
+    if (data['isDraft'] !== undefined)
+        news.isDraft = !!data['isDraft'];
+    if (data['isProject'] !== undefined)
+        news.isProject = !!data['isProject'];
+    if (data['isVacancy'] !== undefined)
+        news.isVacancy = !!data['isVacancy'];
+
+    news.save();
+
+    this.body = news.toJSON();
+};
