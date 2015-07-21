@@ -61,10 +61,10 @@ module.exports.add = function * () {
     var authorId = news['authorId'] || '654654';
     var isDraft = news['isDraft'] || false;
     var isProject = news['isProject'] || false;
-    var statusId = news['statusId'] || null;
-    var categoryId = news['categoryId'] || null;
+    var statusId = (news['statusId'] | 0) || null;
+    var categoryId = (news['categoryId'] | 0) || null;
 
-    yield models.News.create({
+    var insertedNews = yield models.News.create({
         id: (Math.random() * 100000) | 0,
         authorId: '' + authorId,
         statusId: statusId,
@@ -82,6 +82,7 @@ module.exports.add = function * () {
         isDraft: !!isDraft
     });
     this.status = 200;
+    this.body = insertedNews.toJSON();
 };
 
 module.exports.updateNews = function * (newsId) {

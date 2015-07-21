@@ -57,13 +57,16 @@ module.exports.add = function * () {
     var phone = data['phone'] || '';
     var text = data['text'] || '';
     var status = data['status'] || '';
+    var replyComment = data['replyComment'] | 0;
 
-    yield models.Feedback.create({
+    var feedback = yield models.Feedback.create({
         name: '' + name,
         email: '' + email,
         phone: '' + phone,
         text: '' + text,
-        status: '' + status
+        status: '' + status,
+        replyComment: replyComment
     });
     this.status = 200;
+    this.body = feedback.toJSON()
 };

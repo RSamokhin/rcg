@@ -61,7 +61,8 @@ module.exports = function(sequelize, DataTypes) {
                     foreignKey: 'newsId'
                 });
             }
-        }
+        },
+        ommitNull: false
     });
     return News;
 };

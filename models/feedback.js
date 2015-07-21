@@ -10,7 +10,10 @@ module.exports = function(sequelize, DataTypes) {
         phone: DataTypes.STRING(50),
         text: DataTypes.STRING(500),
         status: DataTypes.STRING(50),
-        reply_comment: DataTypes.INTEGER
+        replyComment: {
+            type: DataTypes.INTEGER,
+            field: 'reply_comment'
+        }
     }, {
         classMethods: {
             associate: function(models) {
