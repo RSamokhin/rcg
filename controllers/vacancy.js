@@ -157,4 +157,5 @@ module.exports.addVacancyReply = function * (newsId) {
     });
 
     this.status = 200;
+    this.body = reply.toJSON();
 };
