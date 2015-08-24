@@ -99,7 +99,7 @@ module.exports.add = function * () {
     var statusId = news['statusId'] || null;
     var categoryId = news['categoryId'] || null;
 
-    var isMale = news['isMale'] || false;
+    var isMale = news['isMale'] || 0;
     var workTime = news['workTime'] || '';
     var money = news['money'] || '';
     var city = news['city'] || '';

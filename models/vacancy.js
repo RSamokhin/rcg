@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
             primaryKey: true
         },
         isMale: {
-            type: DataTypes.BOOLEAN,
+            type: DataTypes.INTEGER,
             field: 'is_male'
         },
         money: DataTypes.STRING,
