@@ -2,7 +2,8 @@ module.exports = function(sequelize, DataTypes) {
     var News = sequelize.define("News", {
         id: {
             type: DataTypes.INTEGER,
-            field: 'n_id'
+            field: 'n_id',
+            primaryKey: true
         },
         authorId: {
             type: DataTypes.STRING,
