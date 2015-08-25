@@ -8,6 +8,7 @@
   "description": "CG ADMIN",
   "dependencies":{
       "normalize.css":"*",
-      "jquery":"2.*"
+      "jquery":"2.*",
+      "bootstrap":"3.*"
   }
 }
