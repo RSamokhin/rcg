@@ -1,0 +1,13 @@
+{
+  "name": "RCG ADMIN",
+  "version": "0.0.1",
+  "homepage": "https://github.com/RSamokhin/",
+  "authors": [
+    "Roman Samokhin <poshliemail@googlemail.com>"
+  ],
+  "description": "CG ADMIN",
+  "dependencies":{
+      "normalize.css":"*",
+      "jquery":"2.*"
+  }
+}

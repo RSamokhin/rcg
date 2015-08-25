@@ -16,7 +16,9 @@
         "koa-static": "^1.4.9",
         "mssql": "*",
         "sequelize": "^3.2.0",
-        "tedious": "^1.11.0"
+        "tedious": "^1.11.0",
+        "koa-serve-static": "0.0.1",
+        "sync-request": "^2.0.1"
     },
     "devDependencies": {}
 }

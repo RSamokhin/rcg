@@ -5,10 +5,13 @@ var koa = require('koa');
 var path = require('path');
 var app = module.exports = koa();
 var co = require('co');
+var serveStatic = require('koa-serve-static');
+
 
 var news = require('./controllers/news');
 var vacancy = require('./controllers/vacancy');
-var replies = require('./controllers/replies');
+var replies = require('./controllers/replies')
+
 var feedbacks = require('./controllers/feedback');
 
 app.use(route.get('/news', news.listNews));
@@ -30,7 +33,10 @@ app.use(route.get('/feedbacks', feedbacks.list));
 app.use(route.put('/feedbacks', feedbacks.add));
 app.use(route.post('/feedbacks/:feedbackId', feedbacks.update));
 
-app.use(serve(path.join(__dirname, 'public')));
+//app.use(serve(path.join(__dirname, 'public')));
+
+app.use(serveStatic('web/build/'));
+
 
 if (!module.parent) 
 {
