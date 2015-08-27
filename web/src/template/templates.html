@@ -1,24 +1,24 @@
 <script id="newsRow" type="text/x-jquery-tmpl">
-    <tr>
+    <tr data-parsed=${data}>
         <td>${id}</td>
         <td>
-            <textarea readonly disabled class='list__news-title' rows='2' type="text" placeholder="No Title">"${title}"</textarea>
+            <textarea readonly data-field="title"  class='list__news-title' rows='2' type="text" placeholder="No Title">"${title}"</textarea>
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>
-            <input readonly disabled type="text" class='list__news-image-url' placeholder="No Picture Url" value="${picture}"/>
+            <input readonly data-field="picture"  type="text" class='list__news-image-url' placeholder="No Picture Url" value="${picture}"/>
             <a class="thumbnail">
               <img src="${picture}" class="div-circle" alt="No Picture">
             </a>
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>
-            <textarea readonly disabled rows="7" class='list__news-short' placeholder="No ShortText">${shortText}</textarea>
+            <textarea readonly data-field="shortText"  rows="7" class='list__news-short' placeholder="No ShortText">${shortText}</textarea>
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
 
         </td>
         <td>
-            <textarea readonly disabled rows="10"  class='list__news-full' placeholder="No Full Text">${text}</textarea>
+            <textarea readonly data-field="text"  rows="10"  class='list__news-full' placeholder="No Full Text">${text}</textarea>
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>${datePublished}</td>
