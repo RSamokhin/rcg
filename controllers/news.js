@@ -38,6 +38,23 @@ module.exports.show = function * (newsId) {
     this.body = news.toJSON();
 };
 
+module.exports.deleteNews = function * (newsId) {
+
+    var news = yield models.News.findOne({
+        where: {
+            id: newsId | 0,
+            isVacancy: false
+        }
+    });
+    if (news === null)
+    {
+        this.status = 404;
+        return;
+    }
+    yield news.destroy();
+    this.status = 200;
+};
+
 module.exports.showComments = function * (newsId) {
 
     var newsComments = yield models.NewsComments.findAll({
