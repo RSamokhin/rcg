@@ -1,5 +1,9 @@
 .list {
     &__news {
+        & textarea,input {
+            background-color: ghostwhite;
+            cursor: pointer;
+        }
         &-title {
             min-width: 300px;
         }
