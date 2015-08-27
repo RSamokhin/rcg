@@ -23,8 +23,10 @@ window.Handlers = {
                 $field = $(this).parent().find('input, textarea');
             if ($button.hasClass('m-button-editable')) {
                 $button.removeClass('m-button-editable').addClass('m-button-saveable');
+                $field.attr('readonly', false).focus();
             } else {
                 $button.addClass('m-button-editable').removeClass('m-button-saveable');
+                $field.attr('readonly', true)
             }
         },
         deleteNews: function(e)
@@ -45,6 +47,17 @@ window.Handlers = {
                     parent.parentNode.removeChild(parent);
                 }
             });
+        }
+    },
+    change: {
+        refreshImage: function (e) {
+            e.preventDefault();
+            var $input = $(this),
+                $target = $($input.attr('data-target-selector'));
+            switch ($target.prop('tagName')) {
+                case 'IMG':
+                    $target.attr('src', $input.val());
+            }
         }
     }
 };
