@@ -22,7 +22,7 @@
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="news">
                     <div class="table-responsive">
-                        <table class="table table-hover list__news" data-append-to="news">
+                        <table class="table table-hover list__news list" data-append-to="news">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -50,15 +50,24 @@
                 <td>${id}</td>
                 <td>
                     <textarea readonly disabled class='list__news-title' rows='2' type="text" placeholder="No Title">"${title}"</textarea>
+                    <div class='m-button m-button-editable' data-bind-click='editField'></div>
                 </td>
                 <td>
                     <input readonly disabled type="text" class='list__news-image-url' placeholder="No Picture Url" value="${picture}"/>
                     <a class="thumbnail">
-                      <img src="${picture}" class="img-circle" alt="No Picture">
+                      <img src="${picture}" class="div-circle" alt="No Picture">
                     </a>
+                    <div class='m-button m-button-editable' data-bind-click='editField'></div>
                 </td>
-                <td><textarea readonly disabled rows="7" class='list__news-short' placeholder="No ShortText">${shortText}</textarea></td>
-                <td><textarea readonly disabled rows="10"  class='list__news-full' placeholder="No Full Text">${text}</textarea></td>
+                <td>
+                    <textarea readonly disabled rows="7" class='list__news-short' placeholder="No ShortText">${shortText}</textarea>
+                    <div class='m-button m-button-editable' data-bind-click='editField'></div>
+        
+                </td>
+                <td>
+                    <textarea readonly disabled rows="10"  class='list__news-full' placeholder="No Full Text">${text}</textarea>
+                    <div class='m-button m-button-editable' data-bind-click='editField'></div>
+                </td>
                 <td>${datePublished}</td>
             </tr>
         </script>

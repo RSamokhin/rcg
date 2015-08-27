@@ -1,9 +1,31 @@
 .list {
-    &__news {
-        & textarea,input {
-            background-color: ghostwhite;
-            cursor: pointer;
+    & td {
+        position: relative;
+    }
+    & .m-button {
+        position: absolute;
+        top: 13px;
+        width: 16px;
+        height: 15px;
+        right: 13px;
+        background-position: center;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        background-color: white;
+        &:hover {
+            opacity: 0.7;
         }
+        &-editable {
+            background-image: url(../img/icon/icon-settings.png);
+        }
+        &-saveable {
+            background-image: url(../img/icon/icon-confirm.png);
+        }
+    }
+    & input, textarea {
+        background-color: ghostwhite;
+    }
+    &__news {
         &-title {
             min-width: 300px;
         }

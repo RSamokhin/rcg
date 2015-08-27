@@ -17,6 +17,15 @@ window.Handlers = {
                 }
             });
 
+        },
+        editField: function (e) {
+            var $button = $(this),
+                $field = $(this).parent().find('input, textarea');
+            if ($button.hasClass('m-button-editable')) {
+                $button.removeClass('m-button-editable').addClass('m-button-saveable');
+            } else {
+                $button.addClass('m-button-editable').removeClass('m-button-saveable');
+            }
         }
     }
 };
