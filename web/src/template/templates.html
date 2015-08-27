@@ -1,5 +1,5 @@
 <script id="newsRow" type="text/x-jquery-tmpl">
-    <tr>
+    <tr data-news-id="${id}">
         <td>${id}</td>
         <td>
             <textarea readonly disabled class='list__news-title' rows='2' type="text" placeholder="No Title">"${title}"</textarea>
@@ -22,5 +22,6 @@
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>${datePublished}</td>
+        <td><a href="#" data-bind-click='deleteNews'>Delete</a></td>
     </tr>
 </script>

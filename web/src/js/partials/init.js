@@ -26,6 +26,25 @@ window.Handlers = {
             } else {
                 $button.addClass('m-button-editable').removeClass('m-button-saveable');
             }
+        },
+        deleteNews: function(e)
+        {
+            e.preventDefault();
+
+            var newsId = -1;
+            var parent = e.target;
+            while(parent && parent.dataset['newsId'] === undefined)
+            {
+                parent = parent.parentNode;
+            }
+            newsId = parent.dataset['newsId'] | 0;
+            $.ajax({
+                url: '/news/' + newsId,
+                method: 'DELETE',
+                success: function () {
+                    parent.parentNode.removeChild(parent);
+                }
+            });
         }
     }
 };
