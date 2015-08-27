@@ -9,6 +9,7 @@
   "dependencies":{
       "normalize.css":"*",
       "jquery":"2.*",
-      "bootstrap":"3.*"
+      "bootstrap":"3.*",
+      "jquery-tmpl":"*"
   }
 }
