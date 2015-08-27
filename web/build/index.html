@@ -22,6 +22,7 @@
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="news">
                     <div class="table-responsive">
+                        <div class="list__add-button"><button data-bind-click="addNewEntry" type="button" class="btn btn-info">Добавить</button></div>
                         <table class="table table-hover list__news list" data-append-to="news">
                             <thead>
                             <tr>
@@ -69,7 +70,7 @@
                     <div class='m-button m-button-editable' data-bind-click='editField'></div>
                 </td>
                 <td>${datePublished}</td>
-                <td><a href="#" data-bind-click='deleteNews'><button type="button" class="btn btn-info">Delete</button></a></td>
+                <td><a href="#" data-bind-click='deleteNews' data-toggle="confirmation" data-placement="left" data-btnOkLabel='Да' data-btnCancelLabel='Нет' data-title="Вы уверены?"><button type="button" class="btn btn-info" >Удалить</button></a></td>
             </tr>
         </script>
                 <section class="footer">

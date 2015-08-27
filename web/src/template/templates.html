@@ -22,6 +22,6 @@
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>${datePublished}</td>
-        <td><a href="#" data-bind-click='deleteNews'><button type="button" class="btn btn-info">Delete</button></a></td>
+        <td><a href="#" data-bind-click='deleteNews' data-toggle="confirmation" data-placement="left" data-btnOkLabel='Да' data-btnCancelLabel='Нет' data-title="Вы уверены?"><button type="button" class="btn btn-info" >Удалить</button></a></td>
     </tr>
 </script>
