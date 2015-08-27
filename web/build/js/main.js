@@ -32,6 +32,20 @@ window.Handlers = {
         switchTabs: function (e) {
             e.preventDefault();
             $(this).tab('show');
+        },
+        requestTableData: function (e) {
+            var $tab =$(this),
+                templateId = $tab.attr('data-request-template-id'),
+                url = $tab.attr('data-request-url'),
+                aim = $tab.attr('data-append-from');
+            $.ajax({
+                url: url,
+                success: function (data) {
+                    $('[data-append-to='+aim+']').html('');
+                    $('#'+templateId).tmpl(data).appendTo('[data-append-to='+aim+']');
+                }
+            });
+
         }
     }
 };
@@ -40,3 +54,4 @@ Object.keys(window.Handlers).forEach(function (bindFunctionEvent) {
        $(document.body).on(bindFunctionEvent, '[data-bind-'+bindFunctionEvent+'*='+bindFunctionName+']', window.Handlers[bindFunctionEvent][bindFunctionName]);
     });
 });
+$('.nav.nav-tabs').children().eq(0).find('a').trigger('click');

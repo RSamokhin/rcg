@@ -1,14 +1,17 @@
 <script id="newsRow" type="text/x-jquery-tmpl">
     <tr>
         <td>${id}</td>
-        <td>${title}</td>
         <td>
-            <a href="#" class="thumbnail">
-              <img src="${picture}" alt="NoPicture">
+            <textarea readonly disabled class='list__news-title' rows='2' type="text" placeholder="No Title">"${title}"</textarea>
+        </td>
+        <td>
+            <input readonly disabled type="text" class='list__news-image-url' placeholder="No Picture Url" value="${picture}"/>
+            <a class="thumbnail">
+              <img src="${picture}" class="img-circle" alt="No Picture">
             </a>
         </td>
-        <td>${shortText}</td>
-        <td>${text}</td>
+        <td><textarea readonly disabled rows="7" class='list__news-short' placeholder="No ShortText">${shortText}</textarea></td>
+        <td><textarea readonly disabled rows="10"  class='list__news-full' placeholder="No Full Text">${text}</textarea></td>
         <td>${datePublished}</td>
     </tr>
 </script>
