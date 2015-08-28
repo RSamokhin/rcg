@@ -17,10 +17,6 @@ window.Handlers = {
                     });
                     $('[data-append-to='+aim+']').html('');
                     $('#'+templateId).tmpl(data).appendTo('[data-append-to='+aim+']');
-                    $('[data-toggle="confirmation"]').each(function () {
-                        $c = $(this);
-                        $c.confirmation({});
-                    });
                 }
             });
 
@@ -57,20 +53,17 @@ window.Handlers = {
         deleteNews: function(e) {
             e.preventDefault();
             $dbutton = $(this);
-            $dbutton.confirmation('show');
-            var newsId = -1;
-            var parent = e.target;
-            while(parent && parent.dataset['newsId'] === undefined) {
-                parent = parent.parentNode;
+            var parent = e.target,
+                fullData = JSON.parse(decodeURI($dbutton.closest('tr').attr('data-parsed')));
+            if (confirm("Сказать привет?")) {
+                $.ajax({
+                    url: $dbutton.closest('table').attr('data-delete-url').replace(':key', fullData[$dbutton.closest('table').attr('data-delete-key')]),
+                    method: 'DELETE',
+                    success: function () {
+                        parent.parentNode.removeChild(parent);
+                    }
+                });
             }
-            newsId = parent.dataset['newsId'] | 0;
-            $.ajax({
-                url: '/news/111' + newsId,
-                method: 'DELETE',
-                success: function () {
-                    parent.parentNode.removeChild(parent);
-                }
-            });
         },
         addNewEntry: function (e) {
 
