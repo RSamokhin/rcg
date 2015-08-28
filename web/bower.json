@@ -8,8 +8,7 @@
   "description": "CG ADMIN",
   "dependencies": {
     "bootstrap": "3.*",
-    "bs-confirmation": "~1.0.3",
-    "jquery": "2.*",
+`    "jquery": "2.*",
     "jquery-tmpl": "*",
     "normalize.css": "*"
   }
