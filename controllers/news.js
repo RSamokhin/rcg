@@ -133,11 +133,11 @@ module.exports.updateNews = function * (newsId) {
     if (data['previewPicture'] !== undefined)
         news.previewPicture = data['previewPicture'].toString();
     if (data['isDraft'] !== undefined)
-        news.isDraft = !!data['isDraft'] && data['isDraft'] !== false;
+        news.isDraft = !!data['isDraft'] && data['isDraft'] !== 'false';
     if (data['isProject'] !== undefined)
-        news.isProject = !!data['isProject'] && data['isProject'] !== false;
+        news.isProject = !!data['isProject'] && data['isProject'] !== 'false';
     if (data['isVacancy'] !== undefined)
-        news.isVacancy = !!data['isVacancy'] && data['isVacancy'] !== false;
+        news.isVacancy = !!data['isVacancy'] && data['isVacancy'] !== 'false';
 
     news.save();
 
