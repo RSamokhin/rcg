@@ -310,45 +310,77 @@ window.Handlers = {
                 $button.removeClass('m-button-editable').addClass('m-button-saveable');
                 $field.attr('readonly', false).focus();
             } else {
-                var fullData = JSON.parse(decodeURI($field.closest('tr').attr('data-parsed'))),
-                    newValue;
-                switch ($field.prop("tagName")) {
-                    case 'INPUT':
-                        newValue = $field.val();
-                        break;
-                    case 'TEXTAREA':
-                        newValue = $field.val();
-                        break;
-                }
-                fullData[$field.attr('data-field')] = newValue;
-                $.ajax({
-                    type: "POST",
-                    url: $field.closest('table').attr('data-update-url').replace(':key', fullData[$field.closest('table').attr('data-update-key')]),
-                    data:fullData,
-                    success: function () {
-                        $button.addClass('m-button-editable').removeClass('m-button-saveable');
-                        $field.attr("readonly", true);
+                if ($button.closest('tr').attr('data-parsed')) {
+                    var fullData = JSON.parse(decodeURI($field.closest('tr').attr('data-parsed'))),
+                        newValue;
+                    switch ($field.prop("tagName")) {
+                        case 'INPUT':
+                            newValue = $field.val();
+                            break;
+                        case 'TEXTAREA':
+                            newValue = $field.val();
+                            break;
                     }
-                });
+                    fullData[$field.attr('data-field')] = newValue;
+                    $.ajax({
+                        type: "POST",
+                        url: $field.closest('table').attr('data-update-url').replace(':key', fullData[$field.closest('table').attr('data-update-key')]),
+                        data: fullData,
+                        success: function () {
+                            $button.addClass('m-button-editable').removeClass('m-button-saveable');
+                            $field.attr("readonly", true);
+                        }
+                    });
+                } else {
+                    $button.addClass('m-button-editable').removeClass('m-button-saveable');
+                    $field.attr("readonly", true);
+                }
             }
         },
         deleteNews: function(e) {
             e.preventDefault();
             $dbutton = $(this);
-            var parent = e.target,
+            var parent = e.target;
+            if ($dbutton.closest('tr').attr('data-parsed')) {
                 fullData = JSON.parse(decodeURI($dbutton.closest('tr').attr('data-parsed')));
-            if (confirm("Вы уверены?")) {
-                $.ajax({
-                    url: $dbutton.closest('table').attr('data-delete-url').replace(':key', fullData[$dbutton.closest('table').attr('data-delete-key')]),
-                    method: 'DELETE',
-                    success: function () {
-                        parent.parentNode.removeChild(parent);
-                    }
-                });
+                if (confirm("Вы уверены?")) {
+                    $.ajax({
+                        url: $dbutton.closest('table').attr('data-delete-url').replace(':key', fullData[$dbutton.closest('table').attr('data-delete-key')]),
+                        method: 'DELETE',
+                        success: function () {
+                            $dbutton.closest('tr').remove();
+                        }
+                    });
+                }
+            } else {
+                $dbutton.closest('tr').remove();
             }
         },
         addNewEntry: function (e) {
-
+            var $addButon = $(this),
+                where = $addButon.closest('[role=tabpanel]').attr('id'),
+                $tbody = $addButon.closest('[role=tabpanel]').find('tbody'),
+                tmpl = $('a[href="#' + where + '"]').attr('data-request-template-id');
+            if ($addButon.hasClass('btn-info')) {
+                $('#' + tmpl).tmpl([{}]).prependTo($tbody);
+                $addButon.addClass('btn-success').removeClass('btn-info').text('Сохранить');
+            } else {
+                var data = {}
+                $addButon.closest('[role=tabpanel]').find('tr').eq(0).find('textarea, inpput').each(function () {
+                    var fname = $(this).attr('data-field'),
+                        fval = $(this).val();
+                    data[fname] = fval;
+                });
+                $.ajax({
+                    url: $addButon.closest('[role=tabpanel]').find('table').attr('data-add-url'),
+                    type: 'PUT',
+                    data: data,
+                    success: function (data) {
+                        $addButon.removeClass('btn-success').addClass('btn-info').text('Добавить');
+                        window.Handlers.click.requestTableData.bind($('a[href="#' + where + '"]'))()
+                    }
+                });
+            }
         }
     },
     change: {
