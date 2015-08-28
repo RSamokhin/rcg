@@ -337,7 +337,7 @@ window.Handlers = {
             $dbutton = $(this);
             var parent = e.target,
                 fullData = JSON.parse(decodeURI($dbutton.closest('tr').attr('data-parsed')));
-            if (confirm("Сказать привет?")) {
+            if (confirm("Вы уверены?")) {
                 $.ajax({
                     url: $dbutton.closest('table').attr('data-delete-url').replace(':key', fullData[$dbutton.closest('table').attr('data-delete-key')]),
                     method: 'DELETE',
