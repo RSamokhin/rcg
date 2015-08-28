@@ -29,24 +29,19 @@ window.Handlers = {
                 $field.attr('readonly', false).focus();
             } else {
                 if ($button.closest('tr').attr('data-parsed')) {
-                    var fullData = JSON.parse(decodeURI($field.closest('tr').attr('data-parsed'))),
-                        newValue;
-                    switch ($field.prop("tagName")) {
-                        case 'INPUT':
-                            newValue = $field.val();
-                            break;
-                        case 'TEXTAREA':
-                            newValue = $field.val();
-                            break;
-                    }
+                    var newValue = newValue = $field.val(),
+                        fullData = {},
+                        prevData = JSON.parse(decodeURI($field.closest('tr').attr('data-parsed')))
                     fullData[$field.attr('data-field')] = newValue;
                     $.ajax({
                         type: "POST",
-                        url: $field.closest('table').attr('data-update-url').replace(':key', fullData[$field.closest('table').attr('data-update-key')]),
+                        url: $field.closest('table').attr('data-update-url').replace(':key', prevData[$field.closest('table').attr('data-update-key')]),
                         data: fullData,
                         success: function () {
                             $button.addClass('m-button-editable').removeClass('m-button-saveable');
                             $field.attr("readonly", true);
+                            prevData[$field.attr('data-field')] = newValue;
+                            $field.closest('tr').attr('data-parsed', encodeURI(JSON.stringify(prevData)));
                         }
                     });
                 } else {
