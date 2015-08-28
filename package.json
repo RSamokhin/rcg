@@ -1,24 +1,25 @@
 {
-    "name": "rcg",
-    "version": "0.1.0",
-    "private": true,
-    "scripts": {
-        "start": "forever stopall && forever --watch --watchDirectory ./  start -c 'node --harmony' app.js && forever list"
-    },
-    "dependencies": {
-        "co": "*",
-        "co-body": "*",
-        "co-mssql": "*",
-        "forever": "*",
-        "forever-monitor": "*",
-        "koa": "^0.18.1",
-        "koa-route": "^2.4.0",
-        "koa-static": "^1.4.9",
-        "mssql": "*",
-        "sequelize": "^3.2.0",
-        "tedious": "^1.11.0",
-        "koa-serve-static": "0.0.1",
-        "sync-request": "^2.0.1"
-    },
-    "devDependencies": {}
+  "name": "rcg",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "forever stopall && forever --watch --watchDirectory ./  start -c 'node --harmony' app.js && forever list"
+  },
+  "dependencies": {
+    "co": "*",
+    "co-body": "*",
+    "co-busboy": "^1.3.0",
+    "co-mssql": "*",
+    "forever": "*",
+    "forever-monitor": "*",
+    "koa": "^0.18.1",
+    "koa-route": "^2.4.0",
+    "koa-serve-static": "0.0.1",
+    "koa-static": "^1.4.9",
+    "mssql": "*",
+    "sequelize": "^3.2.0",
+    "sync-request": "^2.0.1",
+    "tedious": "^1.11.0"
+  },
+  "devDependencies": {}
 }

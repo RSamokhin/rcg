@@ -11,6 +11,7 @@ var serveStatic = require('koa-serve-static');
 var news = require('./controllers/news');
 var vacancy = require('./controllers/vacancy');
 var replies = require('./controllers/replies')
+var images = require('./controllers/images')
 
 var feedbacks = require('./controllers/feedback');
 
@@ -29,10 +30,11 @@ app.use(route.put('/vacancy/:id/replies', vacancy.addVacancyReply));
 app.use(route.get('/replies/:id', replies.showReply));
 app.use(route.post('/replies/:id', replies.updateReply));
 app.use(route.put('/vacancy', vacancy.add));
-
 app.use(route.get('/feedbacks', feedbacks.list));
 app.use(route.put('/feedbacks', feedbacks.add));
 app.use(route.post('/feedbacks/:feedbackId', feedbacks.update));
+
+app.use(route.post('/images/', images.add));
 
 //app.use(serve(path.join(__dirname, 'public')));
 
