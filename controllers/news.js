@@ -76,8 +76,8 @@ module.exports.add = function * () {
     var picture = news['picture'] || '';
     var previewPicture = news['previewPicture'] || '';
     var authorId = news['authorId'] || '654654';
-    var isDraft = (news['isDraft'] && news['isDraft'] !== 'false') || false;
-    var isProject = (news['isProject'] && news['isProject'] !== 'false') || false;
+    var isDraft = news['isDraft'] || false;
+    var isProject = news['isProject'] || false;
     var statusId = (news['statusId'] | 0) || null;
     var categoryId = (news['categoryId'] | 0) || null;
 
@@ -133,11 +133,11 @@ module.exports.updateNews = function * (newsId) {
     if (data['previewPicture'] !== undefined)
         news.previewPicture = data['previewPicture'].toString();
     if (data['isDraft'] !== undefined)
-        news.isDraft = !!data['isDraft'] && data['isDraft'] !== 'false';
+        news.isDraft = !!data['isDraft'];
     if (data['isProject'] !== undefined)
-        news.isProject = !!data['isProject'] && data['isProject'] !== 'false';
+        news.isProject = !!data['isProject'];
     if (data['isVacancy'] !== undefined)
-        news.isVacancy = !!data['isVacancy'] && data['isVacancy'] !== 'false';
+        news.isVacancy = !!data['isVacancy'];
 
     news.save();
 
