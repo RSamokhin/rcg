@@ -6,10 +6,11 @@
     "Roman Samokhin <poshliemail@googlemail.com>"
   ],
   "description": "CG ADMIN",
-  "dependencies":{
-      "normalize.css":"*",
-      "jquery":"2.*",
-      "bootstrap":"3.*",
-      "jquery-tmpl":"*"
+  "dependencies": {
+    "bootstrap": "3.*",
+    "bs-confirmation": "~1.0.3",
+    "jquery": "2.*",
+    "jquery-tmpl": "*",
+    "normalize.css": "*"
   }
 }

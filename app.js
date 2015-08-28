@@ -18,6 +18,7 @@ app.use(route.get('/news', news.listNews));
 app.use(route.get('/vacancy', vacancy.listVacancies));
 app.use(route.get('/news/:id', news.show));
 app.use(route.post('/news/:id', news.updateNews));
+app.use(route.del('/news/:id', news.deleteNews));
 app.use(route.post('/vacancy/:id', news.updateNews));
 app.use(route.get('/news/:id/comments', news.showComments));
 app.use(route.put('/news', news.add));

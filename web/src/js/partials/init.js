@@ -17,6 +17,10 @@ window.Handlers = {
                     });
                     $('[data-append-to='+aim+']').html('');
                     $('#'+templateId).tmpl(data).appendTo('[data-append-to='+aim+']');
+                    $('[data-toggle="confirmation"]').each(function () {
+                        $c = $(this);
+                        $c.confirmation({});
+                    });
                 }
             });
 
@@ -26,7 +30,7 @@ window.Handlers = {
                 $field = $(this).parent().find('input, textarea');
             if ($button.hasClass('m-button-editable')) {
                 $button.removeClass('m-button-editable').addClass('m-button-saveable');
-                $field.attr("readonly", false).focus();
+                $field.attr('readonly', false).focus();
             } else {
                 var fullData = JSON.parse(decodeURI($field.closest('tr').attr('data-parsed'))),
                     newValue;
@@ -48,6 +52,38 @@ window.Handlers = {
                         $field.attr("readonly", true);
                     }
                 });
+            }
+        },
+        deleteNews: function(e) {
+            e.preventDefault();
+            $dbutton = $(this);
+            $dbutton.confirmation('show');
+            var newsId = -1;
+            var parent = e.target;
+            while(parent && parent.dataset['newsId'] === undefined) {
+                parent = parent.parentNode;
+            }
+            newsId = parent.dataset['newsId'] | 0;
+            $.ajax({
+                url: '/news/111' + newsId,
+                method: 'DELETE',
+                success: function () {
+                    parent.parentNode.removeChild(parent);
+                }
+            });
+        },
+        addNewEntry: function (e) {
+
+        }
+    },
+    change: {
+        refreshImage: function (e) {
+            e.preventDefault();
+            var $input = $(this),
+                $target = $($input.attr('data-target-selector'));
+            switch ($target.prop('tagName')) {
+                case 'IMG':
+                    $target.attr('src', $input.val());
             }
         }
     }
