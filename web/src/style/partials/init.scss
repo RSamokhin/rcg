@@ -6,6 +6,9 @@
     }
     & td {
         position: relative;
+        & >* {
+            width: 100%;
+        }
     }
     & .m-button {
         position: absolute;
@@ -31,20 +34,17 @@
         background-color: ghostwhite;
     }
     &__news {
+
         &-title {
-            min-width: 300px;
         }
         &-image {
             &-url {
                 width: 100%;
-                min-width: 200px;
             }
         }
         &-short {
-            min-width: 300px;
         }
         &-full {
-            min-width: 400px;
         }
     }
 }
