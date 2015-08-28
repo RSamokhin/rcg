@@ -44,7 +44,7 @@ window.Handlers = {
                     data.forEach(function (d) {
                         d.data = encodeURI(JSON.stringify(d));
                     });
-                    $('[data-append-to='+aim+']').html('');
+                    $('[data-append-to='+aim+'] > tbody').html('');
                     $('#'+templateId).tmpl(data).appendTo('[data-append-to='+aim+']');
                 }
             });
@@ -112,8 +112,8 @@ window.Handlers = {
                 $('#' + tmpl).tmpl([{}]).prependTo($tbody);
                 $addButon.addClass('btn-success').removeClass('btn-info').text('Сохранить');
             } else {
-                var data = {}
-                $addButon.closest('[role=tabpanel]').find('tr').eq(0).find('textarea, inpput').each(function () {
+                var data = {};
+                $addButon.closest('[role=tabpanel]').find('tbody > tr').eq(0).find('textarea, input').each(function () {
                     var fname = $(this).attr('data-field'),
                         fval = $(this).val();
                     data[fname] = fval;
