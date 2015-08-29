@@ -35,7 +35,8 @@ module.exports.listVacancyReplies = function * (newsId) {
         where: {
             newsId: newsId | 0,
             commentType: 'vacancyReply'
-        }
+        },
+        order: [['timestamp', 'DESC']]
     });
     this.body = newsComments.map(newsComment => newsComment.toJSON());
 };
@@ -52,6 +53,7 @@ module.exports.listReplies = function * (newsId) {
         where:{
             commentType: 'vacancyReply'
         },
+        order: [['timestamp', 'DESC']],
         include: [
             {
                 model: models.News,

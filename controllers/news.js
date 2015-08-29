@@ -15,7 +15,8 @@ module.exports.listNews = function * () {
             isVacancy: false,
             isProject: false,
             isDraft: false
-        }
+        },
+        order: [['datepubliched', 'DESC']]
     });
     this.body = news.map(news => news.toJSON());
 };
@@ -60,7 +61,8 @@ module.exports.showComments = function * (newsId) {
     var newsComments = yield models.NewsComments.findAll({
         where: {
             newsId: newsId | 0
-        }
+        },
+        order: [['timestamp', 'DESC']]
     });
     this.body = newsComments.map(newsComment => newsComment.toJSON());
 };
