@@ -23,7 +23,7 @@ window.Handlers = {
         },
         editField: function (e) {
             var $button = $(this),
-                $field = $(this).parent().find('input, textarea');
+                $field = $(this).parent().find('input, textarea').eq(0);
             if ($button.hasClass('m-button-editable')) {
                 $button.removeClass('m-button-editable').addClass('m-button-saveable');
                 $field.attr('readonly', false).focus();
@@ -105,6 +105,31 @@ window.Handlers = {
                 case 'IMG':
                     $target.attr('src', $input.val());
             }
+        },
+        'uploadImage': function (e) {
+            var pictureInput = this;
+            var myFormData = new FormData();
+            myFormData.append('pictureFile', pictureInput.files[0]);
+
+            $.ajax({
+                url: 'images',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                data: myFormData,
+                success: function (data) {
+                    if (data.status === 'OK') {
+                        var purl = data.path;
+                        if ($(pictureInput).parent().children('[data-bind-click=editField]').hasClass('m-button-editable')) {
+                            $(pictureInput).parent().children('[data-bind-click=editField]').trigger('click')
+                        }
+                        $('[data-target-selector="' + $(pictureInput).attr('data-url-selector')  + '"]').val(purl).trigger('change');
+                    } else {
+                        alert('Произошла ошибка')
+                    }
+                }
+            });
         }
     }
 };

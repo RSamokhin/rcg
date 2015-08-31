@@ -10,6 +10,7 @@
             <a class="thumbnail">
               <img class='news-picture-${id}' src="${picture}" class="div-circle" alt="No Picture">
             </a>
+            <input type="file" class="btn btn-default" data-url-selector='.news-picture-${id}'  data-bind-change='uploadImage' value="Загрузить"/>
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>
