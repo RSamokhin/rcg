@@ -2,11 +2,23 @@ var fs = require('fs');
 var path = require('path');
 var parse = require('co-busboy');
 
+var allowed = ['jpg', 'png', 'gif'];
+
 module.exports.add = function *(next){
    // if (this.is('image/*')) {
         var parts = parse(this);
         var part;
         while (part = yield parts) {
+
+            var ext = path.extname(part.filename).slice(1);
+            if (allowed.indexOf(ext) === -1)
+            {
+                this.body = {
+                    status: 'ERROR',
+                    error : 'unsupported type'
+                };
+                return;
+            }
             var stream = fs.createWriteStream(path.join('images', guid()) + '.' + part.filename.split('.').slice(-1).toString());
             part.pipe(stream);
             this.body = {
