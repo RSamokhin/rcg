@@ -7,7 +7,6 @@ var app = module.exports = koa();
 var co = require('co');
 var serveStatic = require('koa-serve-static');
 
-
 var news = require('./controllers/news');
 var vacancy = require('./controllers/vacancy');
 var replies = require('./controllers/replies')
@@ -35,8 +34,7 @@ app.use(route.put('/feedbacks', feedbacks.add));
 app.use(route.post('/feedbacks/:feedbackId', feedbacks.update));
 
 app.use(route.post('/images/', images.add));
-
-//app.use(serve(path.join(__dirname, 'public')));
+app.use(route.get('/images/:fname', images.get));
 
 app.use(serveStatic('web/build/'));
 

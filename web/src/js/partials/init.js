@@ -105,6 +105,22 @@ window.Handlers = {
                 case 'IMG':
                     $target.attr('src', $input.val());
             }
+        },
+        'uploadImage': function (e) {
+            var pictureInput = this;
+            var myFormData = new FormData();
+            myFormData.append('pictureFile', pictureInput.files[0]);
+            $.ajax({
+                url: 'images',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                data: myFormData,
+                success: function (data) {
+                    console.log(data);
+                }
+            });
         }
     }
 };
