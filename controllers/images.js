@@ -11,7 +11,7 @@ module.exports.add = function *(next){
             part.pipe(stream);
             this.body = {
                 status: 'OK',
-                path : stream.path
+                path : '/' + stream.path
             };
         }
  /*   } else {
