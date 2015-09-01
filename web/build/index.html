@@ -11,8 +11,25 @@
             <body>
                 <section class="header">
                         <ul class="nav nav-tabs" data-bind-click="switchTabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#news" data-bind-click="requestTableData" data-append-from="news" data-request-url="/news" data-request-template-id="newsRow" aria-controls="home" role="tab" data-toggle="tab">Новости</a></li>
-                            <li role="presentation"><a href="#vacancies" aria-controls="profile" role="tab" data-toggle="tab">Вакансии</a></li>
+                            <li role="presentation" class="active">
+                                <a href="#news"
+                                   data-bind-click="requestTableData"
+                                   data-append-from="news"
+                                   data-request-url="/news"
+                                   data-request-template-id="newsRow"
+                                   aria-controls="news"
+                                   role="tab"
+                                   data-toggle="tab">Новости</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#vacancy"
+                                   aria-controls="vacancy"
+                                   role="tab"
+                                   data-bind-click="requestTableData"
+                                   data-append-from="vacancy"
+                                   data-request-url="/vacancy"
+                                   data-request-template-id="vacancyRow"
+                                   data-toggle="tab">Вакансии</a></li>
                             <li role="presentation"><a href="#feedbacks" aria-controls="messages" role="tab" data-toggle="tab">Обратная связь</a></li>
                             <li role="presentation"><a href="#users" aria-controls="messages" role="tab" data-toggle="tab">Пользователи</a></li>
                             <li role="presentation"><a href="#bonuses" aria-controls="messages" role="tab" data-toggle="tab">Бонусы</a></li>
@@ -23,7 +40,7 @@
                 <div role="tabpanel" class="tab-pane fade in active" id="news">
                     <div class="table-responsive">
                         <div class="list__add-button"><button data-bind-click="addNewEntry" type="button" class="btn btn-info">Добавить</button></div>
-                        <table class="table table-hover list__news list"
+                        <table class="table table-hover list"
                                data-append-to="news"
                                data-update-url="/news/:key"
                                data-update-key="id"
@@ -45,23 +62,29 @@
                         </table>
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane fade" id="vacancies">
+                <div role="tabpanel" class="tab-pane fade" id="vacancy">
                     <div class="table-responsive">
                         <div class="list__add-button"><button data-bind-click="addNewEntry" type="button" class="btn btn-info">Добавить</button></div>
-                        <table class="table table-hover list__news list"
-                               data-append-to="news"
-                               data-update-url="/news/:key"
+                        <table class="table table-hover list"
+                               data-append-to="vacancy"
+                               data-update-url="/vacancy/:key"
                                data-update-key="id"
-                               data-delete-url="/news/:key"
+                               data-delete-url="/vacancy/:key"
                                data-delete-key="id"
-                               data-add-url="/news">
+                               data-add-url="/vacancy">
                             <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Title</th>
                                     <th>Picture</th>
+                                    <th>Preview</th>
                                     <th>Short Text</th>
                                     <th>Text</th>
+                                    <th>Monew</th>
+                                    <th>Work Time</th>
+                                    <th>City</th>
+                                    <th>Sex</th>
+                                    <th>End Time</th>
                                     <th>Published</th>
                                     <th>Remove</th>
                                 </tr>
@@ -76,6 +99,34 @@
             </div>
         </section>
         <script id="newsRow" type="text/x-jquery-tmpl">
+            <tr data-parsed=${data}>
+                <td>${id}</td>
+                <td>
+                    <textarea readonly data-field="title"  class='list__news-title' rows='2' type="text" placeholder="No Title">${title}</textarea>
+                    <div class='m-button m-button-editable' data-bind-click='editField'></div>
+                </td>
+                <td>
+                    <input readonly  data-target-selector='.news-picture-${id}' data-field="picture" data-bind-change='refreshImage' type="text" class='list__news-image-url' placeholder="No Picture Url" value="${picture}"/>
+                    <a class="thumbnail">
+                      <img class='news-picture-${id}' src="${picture}" class="div-circle" alt="No Picture">
+                    </a>
+                    <input type="file" class="btn btn-default" data-url-selector='.news-picture-${id}'  data-bind-change='uploadImage' value="Загрузить"/>
+                    <div class='m-button m-button-editable' data-bind-click='editField'></div>
+                </td>
+                <td>
+                    <textarea readonly data-field="shortText"  rows="7" class='list__news-short' placeholder="No ShortText">${shortText}</textarea>
+                    <div class='m-button m-button-editable' data-bind-click='editField'></div>
+        
+                </td>
+                <td>
+                    <textarea readonly data-field="text"  rows="10"  class='list__news-full' placeholder="No Full Text">${text}</textarea>
+                    <div class='m-button m-button-editable' data-bind-click='editField'></div>
+                </td>
+                <td data-format='date'>${datePublished}</td>
+                <td><a href="#" data-bind-click='deleteNews'><button type="button" class="btn btn-info" >Удалить</button></a></td>
+            </tr>
+        </script>
+        <script id="vacancyRow" type="text/x-jquery-tmpl">
             <tr data-parsed=${data}>
                 <td>${id}</td>
                 <td>

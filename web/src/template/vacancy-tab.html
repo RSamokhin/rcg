@@ -1,19 +1,25 @@
 <div class="table-responsive">
     <div class="list__add-button"><button data-bind-click="addNewEntry" type="button" class="btn btn-info">Добавить</button></div>
-    <table class="table table-hover list__news list"
-           data-append-to="news"
-           data-update-url="/news/:key"
+    <table class="table table-hover list"
+           data-append-to="vacancy"
+           data-update-url="/vacancy/:key"
            data-update-key="id"
-           data-delete-url="/news/:key"
+           data-delete-url="/vacancy/:key"
            data-delete-key="id"
-           data-add-url="/news">
+           data-add-url="/vacancy">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Title</th>
                 <th>Picture</th>
+                <th>Preview</th>
                 <th>Short Text</th>
                 <th>Text</th>
+                <th>Monew</th>
+                <th>Work Time</th>
+                <th>City</th>
+                <th>Sex</th>
+                <th>End Time</th>
                 <th>Published</th>
                 <th>Remove</th>
             </tr>

@@ -177,4 +177,4 @@ Object.keys(window.Handlers).forEach(function (bindFunctionEvent) {
        $(document.body).on(bindFunctionEvent, '[data-bind-'+bindFunctionEvent+'*='+bindFunctionName+']', window.Handlers[bindFunctionEvent][bindFunctionName]);
     });
 });
-$('.nav.nav-tabs').children().eq(0).find('a').trigger('click');
+$('.nav.nav-tabs').children().eq(1).find('a').trigger('click');

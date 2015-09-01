@@ -11,8 +11,25 @@
     <body>
         <section class="header">
                 <ul class="nav nav-tabs" data-bind-click="switchTabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#news" data-bind-click="requestTableData" data-append-from="news" data-request-url="/news" data-request-template-id="newsRow" aria-controls="home" role="tab" data-toggle="tab">Новости</a></li>
-                    <li role="presentation"><a href="#vacancies" aria-controls="profile" role="tab" data-toggle="tab">Вакансии</a></li>
+                    <li role="presentation" class="active">
+                        <a href="#news"
+                           data-bind-click="requestTableData"
+                           data-append-from="news"
+                           data-request-url="/news"
+                           data-request-template-id="newsRow"
+                           aria-controls="news"
+                           role="tab"
+                           data-toggle="tab">Новости</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#vacancy"
+                           aria-controls="vacancy"
+                           role="tab"
+                           data-bind-click="requestTableData"
+                           data-append-from="vacancy"
+                           data-request-url="/vacancy"
+                           data-request-template-id="vacancyRow"
+                           data-toggle="tab">Вакансии</a></li>
                     <li role="presentation"><a href="#feedbacks" aria-controls="messages" role="tab" data-toggle="tab">Обратная связь</a></li>
                     <li role="presentation"><a href="#users" aria-controls="messages" role="tab" data-toggle="tab">Пользователи</a></li>
                     <li role="presentation"><a href="#bonuses" aria-controls="messages" role="tab" data-toggle="tab">Бонусы</a></li>
