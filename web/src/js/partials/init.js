@@ -12,8 +12,10 @@ window.Handlers = {
             $.ajax({
                 url: url,
                 success: function (data) {
-                    data.forEach(function (d) {
+                    data = data.map(function (d, i) {
+                        d = JSON.flatten(d, '_');
                         d.data = encodeURI(JSON.stringify(d));
+                        return d;
                     });
                     $('[data-append-to='+aim+'] > tbody').html('');
                     $('#'+templateId).tmpl(data).appendTo('[data-append-to='+aim+']');
@@ -41,7 +43,7 @@ window.Handlers = {
                 if ($button.closest('tr').attr('data-parsed')) {
                     var newValue = newValue = $field.val(),
                         fullData = {},
-                        prevData = JSON.parse(decodeURI($field.closest('tr').attr('data-parsed')))
+                        prevData = JSON.parse(decodeURI($field.closest('tr').attr('data-parsed')));
                     fullData[$field.attr('data-field')] = newValue;
                     $.ajax({
                         type: "POST",
@@ -142,6 +144,52 @@ window.Handlers = {
             });
         }
     }
+};
+JSON.unflatten = function(data, splitter) {
+    "use strict";
+    if (!splitter) {
+        splitter = '.';
+    }
+    if (Object(data) !== data || Array.isArray(data))
+        return data;
+    var result = {}, cur, prop, parts, idx;
+    for(var p in data) {
+        cur = result, prop = "";
+        parts = p.split(splitter);
+        for(var i=0; i<parts.length; i++) {
+            idx = !isNaN(parseInt(parts[i]));
+            cur = cur[prop] || (cur[prop] = (idx ? [] : {}));
+            prop = parts[i];
+        }
+        cur[prop] = data[p];
+    }
+    return result[""];
+};
+JSON.flatten = function(data, splitter) {
+    if (!splitter) {
+        splitter = '.';
+    }
+    var result = {};
+    function recurse (cur, prop) {
+        if (Object(cur) !== cur) {
+            result[prop] = cur;
+        } else if (Array.isArray(cur)) {
+            for(var i=0, l=cur.length; i<l; i++)
+                recurse(cur[i], prop ? prop+splitter+i : ""+i);
+            if (l == 0)
+                result[prop] = [];
+        } else {
+            var isEmpty = true;
+            for (var p in cur) {
+                isEmpty = false;
+                recurse(cur[p], prop ? prop+splitter+p : p);
+            }
+            if (isEmpty)
+                result[prop] = {};
+        }
+    }
+    recurse(data, "");
+    return result;
 };
 Object.keys(window.Handlers).forEach(function (bindFunctionEvent) {
     Object.keys(window.Handlers[bindFunctionEvent]).forEach(function (bindFunctionName) {

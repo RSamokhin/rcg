@@ -80,7 +80,7 @@
                                     <th>Preview</th>
                                     <th>Short Text</th>
                                     <th>Text</th>
-                                    <th>Monew</th>
+                                    <th>Money</th>
                                     <th>Work Time</th>
                                     <th>City</th>
                                     <th>Sex</th>
@@ -99,14 +99,14 @@
             </div>
         </section>
         <script id="newsRow" type="text/x-jquery-tmpl">
-            <tr data-parsed=${data}>
+            <tr data-parsed="${data}">
                 <td>${id}</td>
                 <td>
-                    <textarea readonly data-field="title"  class='list__news-title' rows='2' type="text" placeholder="No Title">${title}</textarea>
+                    <textarea readonly data-field="title" rows='2' type="text" placeholder="No Title">${title}</textarea>
                     <div class='m-button m-button-editable' data-bind-click='editField'></div>
                 </td>
                 <td>
-                    <input readonly  data-target-selector='.news-picture-${id}' data-field="picture" data-bind-change='refreshImage' type="text" class='list__news-image-url' placeholder="No Picture Url" value="${picture}"/>
+                    <input readonly  data-target-selector='.news-picture-${id}' data-field="picture" data-bind-change='refreshImage' type="text" placeholder="No Picture Url" value="${picture}"/>
                     <a class="thumbnail">
                       <img class='news-picture-${id}' src="${picture}" class="div-circle" alt="No Picture">
                     </a>
@@ -114,12 +114,11 @@
                     <div class='m-button m-button-editable' data-bind-click='editField'></div>
                 </td>
                 <td>
-                    <textarea readonly data-field="shortText"  rows="7" class='list__news-short' placeholder="No ShortText">${shortText}</textarea>
+                    <textarea readonly data-field="shortText"  rows="7"  placeholder="No ShortText">${shortText}</textarea>
                     <div class='m-button m-button-editable' data-bind-click='editField'></div>
-        
                 </td>
                 <td>
-                    <textarea readonly data-field="text"  rows="10"  class='list__news-full' placeholder="No Full Text">${text}</textarea>
+                    <textarea readonly data-field="text"  rows="10"   placeholder="No Full Text">${text}</textarea>
                     <div class='m-button m-button-editable' data-bind-click='editField'></div>
                 </td>
                 <td data-format='date'>${datePublished}</td>
@@ -127,31 +126,46 @@
             </tr>
         </script>
         <script id="vacancyRow" type="text/x-jquery-tmpl">
-            <tr data-parsed=${data}>
+            <tr data-parsed="${data}">
                 <td>${id}</td>
                 <td>
-                    <textarea readonly data-field="title"  class='list__news-title' rows='2' type="text" placeholder="No Title">${title}</textarea>
+                    <textarea readonly data-field="title"  rows='2' type="text" placeholder="No Title">${title}</textarea>
                     <div class='m-button m-button-editable' data-bind-click='editField'></div>
                 </td>
                 <td>
-                    <input readonly  data-target-selector='.news-picture-${id}' data-field="picture" data-bind-change='refreshImage' type="text" class='list__news-image-url' placeholder="No Picture Url" value="${picture}"/>
+                    <input readonly  data-target-selector='.vacancy-picture-${id}' data-field="picture" data-bind-change='refreshImage' type="text" placeholder="No Picture Url" value="${picture}"/>
                     <a class="thumbnail">
-                      <img class='news-picture-${id}' src="${picture}" class="div-circle" alt="No Picture">
+                      <img class='vacancy-picture-${id}' src="${picture}" class="div-circle" alt="No Picture">
                     </a>
-                    <input type="file" class="btn btn-default" data-url-selector='.news-picture-${id}'  data-bind-change='uploadImage' value="Загрузить"/>
+                    <input type="file" class="btn btn-default" data-url-selector='.vacancy-picture-${id}'  data-bind-change='uploadImage' value="Загрузить"/>
                     <div class='m-button m-button-editable' data-bind-click='editField'></div>
                 </td>
                 <td>
-                    <textarea readonly data-field="shortText"  rows="7" class='list__news-short' placeholder="No ShortText">${shortText}</textarea>
+                    <input readonly  data-target-selector='.vacancy-preview-picture-${id}' data-field="previewPicture" data-bind-change='refreshImage' type="text" placeholder="No Picture Url" value="${previewPicture}"/>
+                    <a class="thumbnail">
+                      <img class='vacancy-preview-picture-${id}' src="${previewPicture}" class="div-circle" alt="No Picture">
+                    </a>
+                    <input type="file" class="btn btn-default" data-url-selector='.vacancy-preview-picture-${id}'  data-bind-change='uploadImage' value="Загрузить"/>
                     <div class='m-button m-button-editable' data-bind-click='editField'></div>
-        
                 </td>
                 <td>
-                    <textarea readonly data-field="text"  rows="10"  class='list__news-full' placeholder="No Full Text">${text}</textarea>
+                    <textarea readonly data-field="shortText"  rows="7"  placeholder="No ShortText">${shortText}</textarea>
                     <div class='m-button m-button-editable' data-bind-click='editField'></div>
                 </td>
-                <td data-format='date'>${datePublished}</td>
-                <td><a href="#" data-bind-click='deleteNews'><button type="button" class="btn btn-info" >Удалить</button></a></td>
+                <td>
+                    <textarea readonly data-field="text"  rows="10"   placeholder="No Full Text">${text}</textarea>
+                    <div class='m-button m-button-editable' data-bind-click='editField'></div>
+                </td>
+                <td>
+                    <input readonly data-field="money" placeholder="No Money" value='${Vacancy_money}'/>
+                    <div class='m-button m-button-editable' data-bind-click='editField'></div>
+                </td>
+                <th>Work Time</th>
+                <th>City</th>
+                <th>Sex</th>
+                <th>End Time</th>
+                <th>Published</th>
+                <th>Remove</th>
             </tr>
         </script>
                 <section class="footer">
