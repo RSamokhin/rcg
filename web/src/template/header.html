@@ -30,7 +30,19 @@
                            data-request-url="/vacancy"
                            data-request-template-id="vacancyRow"
                            data-toggle="tab">Вакансии</a></li>
-                    <li role="presentation"><a href="#replies" aria-controls="messages" role="tab" data-toggle="tab">Отклики</a></li>
-                    <li role="presentation"><a href="#feedbacks" aria-controls="messages" role="tab" data-toggle="tab">Обратная связь</a></li>
+                    <li role="presentation">
+                        <a href="#replies"
+                               aria-controls="replies"
+                               role="tab"
+                               data-bind-click="requestTableData"
+                               data-toggle="tab">Отклики</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#feedback"
+                           aria-controls="feedback"
+                           role="tab"
+                           data-bind-click="requestTableData"
+                           data-toggle="tab">Обратная связь</a>
+                    </li>
                 </ul>
         </section>

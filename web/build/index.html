@@ -30,8 +30,20 @@
                                    data-request-url="/vacancy"
                                    data-request-template-id="vacancyRow"
                                    data-toggle="tab">Вакансии</a></li>
-                            <li role="presentation"><a href="#replies" aria-controls="messages" role="tab" data-toggle="tab">Отклики</a></li>
-                            <li role="presentation"><a href="#feedbacks" aria-controls="messages" role="tab" data-toggle="tab">Обратная связь</a></li>
+                            <li role="presentation">
+                                <a href="#replies"
+                                       aria-controls="replies"
+                                       role="tab"
+                                       data-bind-click="requestTableData"
+                                       data-toggle="tab">Отклики</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#feedback"
+                                   aria-controls="feedback"
+                                   role="tab"
+                                   data-bind-click="requestTableData"
+                                   data-toggle="tab">Обратная связь</a>
+                            </li>
                         </ul>
                 </section>
         <section class="content">
@@ -93,7 +105,7 @@
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="replies"><div class="alert alert-danger" role="alert">You are not prepared</div></div>
-                <div role="tabpanel" class="tab-pane fade" id="feedbacks"><div class="alert alert-danger" role="alert">You are not prepared</div></div>
+                <div role="tabpanel" class="tab-pane fade" id="feedback"><div class="alert alert-danger" role="alert">You are not prepared</div></div>
             </div>
         </section>
         <script id="newsRow" type="text/x-jquery-tmpl">

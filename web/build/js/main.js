@@ -38,6 +38,9 @@ window.Handlers = {
                 templateId = $tab.attr('data-request-template-id'),
                 url = $tab.attr('data-request-url'),
                 aim = $tab.attr('data-append-from');
+            location.hash = $tab.attr('href') + location.hash.split('$$$').filter(function (el, i) {
+                return i > 0;
+            }).join('$$$');
             $.ajax({
                 url: url,
                 success: function (data) {
@@ -234,4 +237,10 @@ Object.keys(window.Handlers).forEach(function (bindFunctionEvent) {
        $(document.body).on(bindFunctionEvent, '[data-bind-'+bindFunctionEvent+'*='+bindFunctionName+']', window.Handlers[bindFunctionEvent][bindFunctionName]);
     });
 });
-$('.nav.nav-tabs').children().eq(1).find('a').trigger('click');
+$(function () {
+    if (!location.hash || $('.nav.nav-tabs').find('[href=' + location.hash.split('$$$')[0] + "]").length === 0){
+        $('.nav.nav-tabs').children().eq(0).find('a').trigger('click');
+    } else {
+        $('.nav.nav-tabs').find('[href=' + location.hash.split('$$$')[0] + "]").trigger('click');
+    }
+});
