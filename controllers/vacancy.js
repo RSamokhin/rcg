@@ -18,7 +18,8 @@ module.exports.listVacancies = function * () {
             isVacancy: true,
             isProject: false,
             isDraft: false
-        }
+        },
+        order: [['datepubliched', 'DESC']]
     });
     this.body = vacancies.map(vacancy => vacancy.toJSON());
 };
