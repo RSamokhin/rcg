@@ -50,13 +50,14 @@ window.Handlers = {
                     $('#'+templateId).tmpl(data).appendTo('[data-append-to='+aim+']');
                     $('[data-append-to='+aim+']').find('td[data-format]').each(function () {
                         var $td = $(this);
-                        switch ($td.attr('data-format')) {
-                            case 'date':
-                                if (!$td.attr('data-inner-selector')) {
-                                    var newDate = new Date($td.text());
-                                    $td.text(newDate.toString().split(' ').slice(0,-2).join(' '));
-                                }
+                        if ($td.attr('data-inner-selector')) {
+                            $td = $td.find($td.attr('data-inner-selector'));
                         }
+                        switch ($td.attr('data-format')) {
+                        case 'date':
+                                var newDate = $td.val() ? new Date($td.val()) : new Date($td.text());
+                                $td.val() ? $td.val(newDate.toString().split(' ').slice(0,-2).join(' ')) : $td.text(newDate.toString().split(' ').slice(0,-2).join(' '));
+                            }
                     });
                 }
             });
@@ -91,7 +92,7 @@ window.Handlers = {
                 }
             }
         },
-        deleteNews: function(e) {
+        deleteRow: function(e) {
             e.preventDefault();
             $dbutton = $(this);
             var parent = e.target;

@@ -122,7 +122,7 @@
                     <div class='m-button m-button-editable' data-bind-click='editField'></div>
                 </td>
                 <td data-format='date'>${datePublished}</td>
-                <td><a href="#" data-bind-click='deleteNews'><button type="button" class="btn btn-info" >Удалить</button></a></td>
+                <td><a href="#" data-bind-click='deleteRow'><button type="button" class="btn btn-info" >Удалить</button></a></td>
             </tr>
         </script>
         <script id="vacancyRow" type="text/x-jquery-tmpl">
@@ -160,12 +160,24 @@
                     <input readonly data-field="money" placeholder="No Money" value='${Vacancy_money}'/>
                     <div class='m-button m-button-editable' data-bind-click='editField'></div>
                 </td>
-                <th>Work Time</th>
-                <th>City</th>
-                <th>Sex</th>
-                <th>End Time</th>
-                <th>Published</th>
-                <th>Remove</th>
+                <td>
+                    <input readonly data-field="workTime" placeholder="No Money" value='${Vacancy_workTime}'/>
+                    <div class='m-button m-button-editable' data-bind-click='editField'></div>
+                </td>
+                <td>
+                    <input readonly data-field="city" placeholder="No Money" value='${Vacancy_city}'/>
+                    <div class='m-button m-button-editable' data-bind-click='editField'></div>
+                </td>
+                <td>
+                    <input readonly data-field="isMale" placeholder="No Money" value='${Vacancy_isMale}'/>
+                    <div class='m-button m-button-editable' data-bind-click='editField'></div>
+                </td>
+                <td>
+                    <input data-format='date' readonly data-field="endTime" placeholder="No Money" value='${Vacancy_endTime}'/>
+                    <div class='m-button m-button-editable' data-bind-click='editField'></div>
+                </td>
+                <td data-format='date'>${datePublished}</td>
+                <td><a href="#" data-bind-click='deleteRow'><button type="button" class="btn btn-info" >Удалить</button></a></td>
             </tr>
         </script>
                 <section class="footer">
