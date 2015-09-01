@@ -136,6 +136,66 @@ module.exports.add = function * () {
     this.status = 200;
 };
 
+module.exports.updateVacancy = function * (id) {
+
+    var data = yield parse(this);
+
+    var news = yield models.News.findOne({
+        where:{
+            id: id | 0,
+            isVacancy: true
+        },
+        include: [models.Vacancy]
+    });
+
+    if (news === null)
+    {
+        this.status = 404;
+        return;
+    }
+
+    if (data['authorId'] !== undefined)
+        news.authorId = data['authorId'].toString();
+    if (data['text'] !== undefined)
+        news.text = data['text'].toString();
+    if (data['title'] !== undefined)
+        news.title = data['title'].toString();
+    if (data['rightsJson'] !== undefined)
+        news.rightsJson = data['rightsJson'].toString();
+    if (data['shortText'] !== undefined)
+        news.shortText = data['shortText'].toString();
+    if (data['picture'] !== undefined)
+        news.picture = data['picture'].toString();
+    if (data['previewPicture'] !== undefined)
+        news.previewPicture = data['previewPicture'].toString();
+    if (data['isDraft'] !== undefined)
+        news.isDraft = !!data['isDraft'] && data['isDraft'] !== 'false';
+    if (data['isProject'] !== undefined)
+        news.isProject = !!data['isProject'] && data['isProject'] !== 'false';
+    if (data['isVacancy'] !== undefined)
+        news.isVacancy = !!data['isVacancy'] && data['isVacancy'] !== 'false';
+
+    var vacancy = news.Vacancy;
+    if (data['isMale'] !== undefined)
+        vacancy.isMale = data['isMale'] | 0;
+    if (data['money'] !== undefined)
+        vacancy.money = data['money'].toString();
+    if (data['city'] !== undefined)
+        vacancy.city = data['city'].toString();
+    if (data['workTime'] !== undefined)
+        vacancy.workTime = data['workTime'].toString();
+    if (data['endTime'] !== undefined)
+    {
+        var endTime = new Date(data['endTime']);
+        vacancy.endTime = isNaN(endTime) ? new Date() : endTime;
+    }
+
+    news.save();
+    vacancy.save();
+
+    this.body = news.toJSON();
+};
+
 module.exports.addVacancyReply = function * (newsId) {
 
     var replyData = yield parse(this);
