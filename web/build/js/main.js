@@ -46,6 +46,16 @@ window.Handlers = {
                     });
                     $('[data-append-to='+aim+'] > tbody').html('');
                     $('#'+templateId).tmpl(data).appendTo('[data-append-to='+aim+']');
+                    $('[data-append-to='+aim+']').find('td[data-format]').each(function () {
+                        var $td = $(this);
+                        switch ($td.attr('data-format')) {
+                            case 'date':
+                                if (!$td.attr('data-inner-selector')) {
+                                    var newDate = new Date($td.text());
+                                    $td.text(newDate.toString().split(' ').slice(0,-2).join(' '));
+                                }
+                        }
+                    });
                 }
             });
 
