@@ -22,7 +22,7 @@
             <textarea readonly data-field="text"  rows="10"  class='list__news-full' placeholder="No Full Text">${text}</textarea>
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
-        <td>${datePublished}</td>
+        <td data-format='date'>${datePublished}</td>
         <td><a href="#" data-bind-click='deleteNews'><button type="button" class="btn btn-info" >Удалить</button></a></td>
     </tr>
 </script>
