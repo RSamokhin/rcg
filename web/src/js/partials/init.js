@@ -19,7 +19,7 @@ window.Handlers = {
                     });
                     $('[data-append-to='+aim+'] > tbody').html('');
                     $('#'+templateId).tmpl(data).appendTo('[data-append-to='+aim+']');
-                    $('[data-append-to='+aim+']').find('td[data-format]').each(function () {
+                    $('[data-append-to='+aim+']').find('[data-format]').each(function () {
                         var $td = $(this);
                         if ($td.attr('data-inner-selector')) {
                             $td = $td.find($td.attr('data-inner-selector'));
@@ -86,6 +86,7 @@ window.Handlers = {
                     });
                 }
             } else {
+                $dbutton.closest('[role=tabpanel]').find('[data-bind-click="addNewEntry"]').removeClass('btn-success').addClass('btn-info').text('Добавить');
                 $dbutton.closest('tr').remove();
             }
         },
