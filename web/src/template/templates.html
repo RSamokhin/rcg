@@ -73,7 +73,7 @@
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>
-            <input data-format='date' readonly data-field="endTime" placeholder="No Money" value='${Vacancy_endTime}'/>
+            <input data-format='date' readonly data-precompile='toISOString' data-field="endTime" placeholder="No Money" value='${Vacancy_endTime}'/>
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td data-format='date'>${datePublished}</td>

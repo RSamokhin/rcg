@@ -45,6 +45,13 @@ window.Handlers = {
                     var newValue = newValue = $field.val(),
                         fullData = {},
                         prevData = JSON.parse(decodeURI($field.closest('tr').attr('data-parsed')));
+                    if ($field.attr('data-precompile')) {
+                        switch ($field.attr('data-precompile')) {
+                            case 'toISOString':
+                                newValue = new Date(newValue);
+                                break;
+                        }
+                    }
                     fullData[$field.attr('data-field')] = newValue;
                     $.ajax({
                         type: "POST",
