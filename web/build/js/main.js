@@ -57,10 +57,25 @@ window.Handlers = {
                             $td = $td.find($td.attr('data-inner-selector'));
                         }
                         switch ($td.attr('data-format')) {
-                        case 'date':
-                                var newDate = $td.val() ? new Date($td.val()) : new Date($td.text());
-                                $td.val() ? $td.val(newDate.toString().split(' ').slice(0,-2).join(' ')) : $td.text(newDate.toString().split(' ').slice(0,-2).join(' '));
-                            }
+                            case 'date':
+                                    var newDate = $td.val() ? new Date($td.val()) : new Date($td.text());
+                                    $td.val() ? $td.val(newDate.toString().split(' ').slice(0,-2).join(' ')) : $td.text(newDate.toString().split(' ').slice(0,-2).join(' '));
+                                    break;
+                            case 'jsonTable':
+                                try {
+                                    var tdData = JSON.parse($td.text());
+                                    var $innerTable = $('<table/>').addClass('table reply-info');
+                                    $td.html('');
+                                    $innerTable.appendTo($td);
+                                    Object.keys(tdData).forEach(function (key) {
+                                        var $innerRow = $('<tr/>');
+                                        $innerRow.appendTo($innerTable);
+                                        $('<td/>').text(key).appendTo($innerRow);
+                                        $('<td/>').text(tdData[key]).appendTo($innerRow);
+                                    });
+                                } catch (e) {}
+                                break;
+                        }
                     });
                 }
             });
