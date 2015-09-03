@@ -2,11 +2,11 @@
     <tr data-parsed="${data}">
         <td>${id}</td>
         <td>
-            <textarea readonly data-field="title" rows='2' type="text" placeholder="No Title">${title}</textarea>
+            <textarea readonly disabled data-field="title" rows='2' type="text" placeholder="No Title">${title}</textarea>
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>
-            <input readonly  data-target-selector='.news-picture-${id}' data-field="picture" data-bind-change='refreshImage' type="text" placeholder="No Picture Url" value="${picture}"/>
+            <input readonly disabled  data-target-selector='.news-picture-${id}' data-field="picture" data-bind-change='refreshImage' type="text" placeholder="No Picture Url" value="${picture}"/>
             <a class="thumbnail">
               <img class='news-picture-${id}' src="${picture}" class="div-circle" alt="No Picture">
             </a>
@@ -14,11 +14,11 @@
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>
-            <textarea readonly data-field="shortText"  rows="7"  placeholder="No ShortText">${shortText}</textarea>
+            <textarea readonly disabled data-field="shortText"  rows="7"  placeholder="No ShortText">${shortText}</textarea>
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>
-            <textarea readonly data-field="text"  rows="10"   placeholder="No Full Text">${text}</textarea>
+            <textarea readonly disabled data-field="text"  rows="10"   placeholder="No Full Text">${text}</textarea>
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td data-format='date'>${datePublished}</td>
@@ -29,11 +29,11 @@
     <tr data-parsed="${data}">
         <td>${id}</td>
         <td>
-            <textarea readonly data-field="title"  rows='2' type="text" placeholder="No Title">${title}</textarea>
+            <textarea readonly disabled data-field="title"  rows='2' type="text" placeholder="No Title">${title}</textarea>
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>
-            <input readonly  data-target-selector='.vacancy-picture-${id}' data-field="picture" data-bind-change='refreshImage' type="text" placeholder="No Picture Url" value="${picture}"/>
+            <input readonly disabled  data-target-selector='.vacancy-picture-${id}' data-field="picture" data-bind-change='refreshImage' type="text" placeholder="No Picture Url" value="${picture}"/>
             <a class="thumbnail">
               <img class='vacancy-picture-${id}' src="${picture}" class="div-circle" alt="No Picture">
             </a>
@@ -41,7 +41,7 @@
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>
-            <input readonly  data-target-selector='.vacancy-preview-picture-${id}' data-field="previewPicture" data-bind-change='refreshImage' type="text" placeholder="No Picture Url" value="${previewPicture}"/>
+            <input readonly disabled  data-target-selector='.vacancy-preview-picture-${id}' data-field="previewPicture" data-bind-change='refreshImage' type="text" placeholder="No Picture Url" value="${previewPicture}"/>
             <a class="thumbnail">
               <img class='vacancy-preview-picture-${id}' src="${previewPicture}" class="div-circle" alt="No Picture">
             </a>
@@ -49,31 +49,34 @@
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>
-            <textarea readonly data-field="shortText"  rows="7"  placeholder="No ShortText">${shortText}</textarea>
+            <textarea readonly disabled data-field="shortText"  rows="7"  placeholder="No ShortText">${shortText}</textarea>
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>
-            <textarea readonly data-field="text"  rows="10"   placeholder="No Full Text">${text}</textarea>
+            <textarea readonly disabled data-field="text"  rows="10"   placeholder="No Full Text">${text}</textarea>
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>
-            <input readonly data-field="money" placeholder="No Money" value='${Vacancy_money}'/>
+            <input readonly disabled data-field="money" placeholder="No Money" value='${Vacancy_money}'/>
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>
-            <input readonly data-field="workTime" placeholder="No WorkTime" value='${Vacancy_workTime}'/>
+            <input readonly disabled data-field="workTime" placeholder="No WorkTime" value='${Vacancy_workTime}'/>
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>
-            <input readonly data-field="city" placeholder="No City" value='${Vacancy_city}'/>
+            <input readonly disabled data-field="city" placeholder="No City" value='${Vacancy_city}'/>
+            <div class='m-button m-button-editable' data-bind-click='editField'></div>
+        </td>
+        <td style='min-width:150px;'>
+            <input readonly disabled data-format='radio' data-field="isMale" placeholder="No Sex" data-precompile='getCheckedRadio' value='${Vacancy_isMale}'/>
+            <input readonly disabled class='list__radio' type="radio" name="sex${id}" value="0">Male<br>
+            <input readonly disabled class='list__radio' type="radio" name="sex${id}" value="1">Female<br>
+            <input readonly disabled class='list__radio' type="radio" name="sex${id}" value="2">Both
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>
-            <input readonly data-field="isMale" placeholder="No Sex" value='${Vacancy_isMale}'/>
-            <div class='m-button m-button-editable' data-bind-click='editField'></div>
-        </td>
-        <td>
-            <input data-format='date' readonly data-precompile='toISOString' data-field="endTime" placeholder="No EndTime" value='${Vacancy_endTime}'/>
+            <input data-format='date' readonly disabled data-precompile='toISOString' data-field="endTime" placeholder="No EndTime" value='${Vacancy_endTime}'/>
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td data-format='date'>${datePublished}</td>
@@ -87,6 +90,7 @@
     <tr data-parsed="${data}">
         <td>${id}</td>
         <td>${newsId}</td>
+        <td>${News_title}</td>
         <td data-format='jsonTable'>${text}</td>
         <td>${commentStatus}</td>
         <td>${adminComment}</td>

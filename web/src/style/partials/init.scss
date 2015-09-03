@@ -7,6 +7,9 @@ body {
         top: 4px;
         right: 5px;
     }
+    &__radio {
+      width:20px !important;
+    }
     & td {
         position: relative;
         & >* {

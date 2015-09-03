@@ -53,9 +53,6 @@ window.Handlers = {
                     $('#'+templateId).tmpl(data).appendTo('[data-append-to='+aim+']');
                     $('[data-append-to='+aim+']').find('[data-format]').each(function () {
                         var $td = $(this);
-                        if ($td.attr('data-inner-selector')) {
-                            $td = $td.find($td.attr('data-inner-selector'));
-                        }
                         switch ($td.attr('data-format')) {
                             case 'date':
                                     var newDate = $td.val() ? new Date($td.val()) : new Date($td.text());
@@ -75,6 +72,10 @@ window.Handlers = {
                                     });
                                 } catch (e) {}
                                 break;
+                            case 'radio':
+                                var newValue = $td.val();
+                                $td.parent().find('[type="radio"][value="' + newValue + '"]').attr('checked', true);
+                                $td.hide();
                         }
                     });
                 }
@@ -86,10 +87,14 @@ window.Handlers = {
                 $field = $(this).parent().find('input, textarea').eq(0);
             if ($button.hasClass('m-button-editable')) {
                 $button.removeClass('m-button-editable').addClass('m-button-saveable');
-                $field.attr('readonly', false).focus();
+                $field.focus();
+                $button.parent().find('input, textarea').attr({
+                    'readonly': false,
+                    'disabled': false
+                });
             } else {
                 if ($button.closest('tr').attr('data-parsed')) {
-                    var newValue = newValue = $field.val(),
+                    var newValue = $field.val(),
                         fullData = {},
                         prevData = JSON.parse(decodeURI($field.closest('tr').attr('data-parsed')));
                     if ($field.attr('data-precompile')) {
@@ -97,6 +102,10 @@ window.Handlers = {
                             case 'toISOString':
                                 newValue = new Date(newValue);
                                 break;
+                            case 'getCheckedRadio': {
+                                newValue = $field.parent().find('[type=radio]:checked').val() ? $field.parent().find('[type=radio]:checked').val() : 0;
+                                break
+                            }
                         }
                     }
                     fullData[$field.attr('data-field')] = newValue;
@@ -106,14 +115,20 @@ window.Handlers = {
                         data: fullData,
                         success: function () {
                             $button.addClass('m-button-editable').removeClass('m-button-saveable');
-                            $field.attr("readonly", true);
+                            $button.parent().find('input, textarea').attr({
+                                'readonly': true,
+                                'disabled': true
+                            });
                             prevData[$field.attr('data-field')] = newValue;
                             $field.closest('tr').attr('data-parsed', encodeURI(JSON.stringify(prevData)));
                         }
                     });
                 } else {
                     $button.addClass('m-button-editable').removeClass('m-button-saveable');
-                    $field.attr("readonly", true);
+                    $button.parent().find('input, textarea').attr({
+                        'readonly': true,
+                        'disabled': true
+                    });
                 }
             }
         },
