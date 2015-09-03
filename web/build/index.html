@@ -35,6 +35,9 @@
                                        aria-controls="replies"
                                        role="tab"
                                        data-bind-click="requestTableData"
+                                       data-append-from="replies"
+                                       data-request-url="/vacancy/replies/"
+                                       data-request-template-id="replyRow"
                                        data-toggle="tab">Отклики</a>
                             </li>
                             <li role="presentation">
@@ -104,7 +107,31 @@
                         </table>
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane fade" id="replies"><div class="alert alert-danger" role="alert">You are not prepared</div></div>
+                <div role="tabpanel" class="tab-pane fade" id="replies">
+                    <div class="table-responsive">
+                        <div class="list__clear-button"><button data-bind-click="clearAllFilters" type="button" class="btn btn-primary">Сбросить фильтры</button></div>
+                        <table class="table table-hover list"
+                               data-append-to="replies"
+                               data-update-url="/vacancy/:key"
+                               data-update-key="id"
+                               data-delete-url="/vacancy/:key"
+                               data-delete-key="id"
+                               data-add-url="/vacancy">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>ID Vacancy</th>
+                                    <th>Reply</th>
+                                    <th>Status</th>
+                                    <th>Admin Comment</th>
+                                    <th>Published</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
                 <div role="tabpanel" class="tab-pane fade" id="feedback"><div class="alert alert-danger" role="alert">You are not prepared</div></div>
             </div>
         </section>
@@ -132,7 +159,7 @@
                     <div class='m-button m-button-editable' data-bind-click='editField'></div>
                 </td>
                 <td data-format='date'>${datePublished}</td>
-                <td><a href="#" data-bind-click='deleteRow'><button type="button" class="btn btn-info" >Удалить</button></a></td>
+                <td><a href="#" data-bind-click='deleteRow'><button type="button" class="btn btn-danger" >Удалить</button></a></td>
             </tr>
         </script>
         <script id="vacancyRow" type="text/x-jquery-tmpl">
@@ -187,15 +214,27 @@
                     <div class='m-button m-button-editable' data-bind-click='editField'></div>
                 </td>
                 <td data-format='date'>${datePublished}</td>
-                <td><a href="#" data-bind-click='deleteRow'><button type="button" class="btn btn-info" >Удалить</button></a></td>
+                <td>
+                    <a href="#" data-bind-click='deleteRow'><button type="button" class="btn btn-danger" >Удалить</button></a>
+                    <a href="/#replies$$$vid=${id}" data-bind-click='showVacancyReplies'><button type="button" class="btn btn-warning" >Отклики</button></a>
+                </td>
+            </tr>
+        </script>
+        <script id="replyRow" type="text/x-jquery-tmpl">
+            <tr data-parsed="${data}">
+                <td>${id}</td>
+                <td>${newsId}</td>
+                <td>${text}</td>
+                <td>${commentStatus}</td>
+                <td>${adminComment}</td>
+                <td data-format='date'>${timestamp}</td>
+                <td>
+                    <a href="#" data-bind-click='deleteRow'><button type="button" class="btn btn-danger" >Удалить</button></a>
+                </td>
             </tr>
         </script>
                 <section class="footer">
-                    <nav class="navbar navbar-default navbar-fixed-bottom">
-                        <div class="container">
-                            <a class="navbar-brand" href="#">RCG Control Panel</a>
-                        </div>
-                    </nav>
+        
                 </section>
             </body>
             <script src="js/main.js"></script>

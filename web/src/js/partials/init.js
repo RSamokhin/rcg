@@ -9,7 +9,7 @@ window.Handlers = {
                 templateId = $tab.attr('data-request-template-id'),
                 url = $tab.attr('data-request-url'),
                 aim = $tab.attr('data-append-from');
-            location.hash = $tab.attr('href') + location.hash.split('$$$').filter(function (el, i) {
+            location.hash = $tab.attr('href')+ '$$$' + location.hash.split('$$$').filter(function (el, i) {
                 return i > 0;
             }).join('$$$');
             $.ajax({
@@ -35,7 +35,7 @@ window.Handlers = {
                     });
                 }
             });
-
+            location.hash = location.hash.split('$$$')[0];
         },
         editField: function (e) {
             var $button = $(this),
@@ -92,6 +92,11 @@ window.Handlers = {
                 $dbutton.closest('[role=tabpanel]').find('[data-bind-click="addNewEntry"]').removeClass('btn-success').addClass('btn-info').text('Добавить');
                 $dbutton.closest('tr').remove();
             }
+        },
+        showVacancyReplies: function (e) {
+            e.preventDefault();
+            location = location.origin + $(this).attr('href');
+            location.reload();
         },
         addNewEntry: function (e) {
             var $addButon = $(this),

@@ -22,7 +22,7 @@
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td data-format='date'>${datePublished}</td>
-        <td><a href="#" data-bind-click='deleteRow'><button type="button" class="btn btn-info" >Удалить</button></a></td>
+        <td><a href="#" data-bind-click='deleteRow'><button type="button" class="btn btn-danger" >Удалить</button></a></td>
     </tr>
 </script>
 <script id="vacancyRow" type="text/x-jquery-tmpl">
@@ -77,6 +77,22 @@
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td data-format='date'>${datePublished}</td>
-        <td><a href="#" data-bind-click='deleteRow'><button type="button" class="btn btn-info" >Удалить</button></a></td>
+        <td>
+            <a href="#" data-bind-click='deleteRow'><button type="button" class="btn btn-danger" >Удалить</button></a>
+            <a href="/#replies$$$vid=${id}" data-bind-click='showVacancyReplies'><button type="button" class="btn btn-warning" >Отклики</button></a>
+        </td>
+    </tr>
+</script>
+<script id="replyRow" type="text/x-jquery-tmpl">
+    <tr data-parsed="${data}">
+        <td>${id}</td>
+        <td>${newsId}</td>
+        <td>${text}</td>
+        <td>${commentStatus}</td>
+        <td>${adminComment}</td>
+        <td data-format='date'>${timestamp}</td>
+        <td>
+            <a href="#" data-bind-click='deleteRow'><button type="button" class="btn btn-danger" >Удалить</button></a>
+        </td>
     </tr>
 </script>

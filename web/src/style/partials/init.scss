@@ -2,7 +2,7 @@ body {
     min-width: 1500px;
 }
 .list {
-    &__add-button {
+    &__add-button, &__clear-button {
         position: absolute;
         top: 4px;
         right: 5px;
