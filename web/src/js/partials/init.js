@@ -8,10 +8,27 @@ window.Handlers = {
             var $tab =$(this),
                 templateId = $tab.attr('data-request-template-id'),
                 url = $tab.attr('data-request-url'),
-                aim = $tab.attr('data-append-from');
+                aim = $tab.attr('data-append-from'),
+                params = {};
             location.hash = $tab.attr('href')+ '$$$' + location.hash.split('$$$').filter(function (el, i) {
                 return i > 0;
             }).join('$$$');
+            location.hash.split('$$$').forEach(function (str) {
+                params[str.split('=')[0]] = str.split('=')[1];
+            });
+            url = '/' + url.split('/').map(function (el) {
+                if (~el.indexOf(':')) {
+                    if (params[el.split(':')[1]]) {
+                        return params[el.split(':')[1]];
+                    } else {
+                        return '';
+                    }
+                } else {
+                    return el;
+                }
+            }).filter(function (el) {
+                return el !== '';
+            }).join('/') + '/';
             $.ajax({
                 url: url,
                 success: function (data) {
@@ -88,6 +105,11 @@ window.Handlers = {
                             case 'getSelectedValue':
                                 newValue = $field.parent().find('select').val();
                                 break;
+                            case 'appendFromTo':
+                                newValue = $field.parent().find('[data-appendfromto="true"]').html() + '\n' + newValue;
+                                $field.parent().find('[data-appendfromto="true"]').html(newValue);
+                                $field.val('');
+                                break;
                         }
                     }
                     fullData[$field.attr('data-field')] = newValue;
@@ -134,6 +156,9 @@ window.Handlers = {
                 $dbutton.closest('tr').remove();
             }
         },
+        clearAllFilters:function (e) {
+            $('.header').find('li.active[role="presentation"]>a').trigger('click');
+        },
         showVacancyReplies: function (e) {
             e.preventDefault();
             location = location.origin + $(this).attr('href');
@@ -150,9 +175,8 @@ window.Handlers = {
             } else {
                 var data = {};
                 $addButon.closest('[role=tabpanel]').find('tbody > tr').eq(0).find('textarea, input').each(function () {
-                    var fname = $(this).attr('data-field'),
-                        fval = $(this).val();
-                    data[fname] = fval;
+                    var fname = $(this).attr('data-field');
+                    data[fname] = $(this).val();
                 });
                 $.ajax({
                     url: $addButon.closest('[role=tabpanel]').find('table').attr('data-add-url'),

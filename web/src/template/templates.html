@@ -82,7 +82,7 @@
         <td data-format='date'>${datePublished}</td>
         <td>
             <a href="#" data-bind-click='deleteRow'><button type="button" class="btn btn-danger" >Удалить</button></a>
-            <a href="/#replies$$$vid=${id}" data-bind-click='showVacancyReplies'><button type="button" class="btn btn-warning" >Отклики</button></a>
+            <a href="/#replies$$$newsId=${id}" data-bind-click='showVacancyReplies'><button type="button" class="btn btn-warning" >Отклики</button></a>
         </td>
     </tr>
 </script>
@@ -104,7 +104,11 @@
             </select>
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
-        <td>${adminComment}</td>
+        <td>
+            <textarea data-precompile='appendFromTo' readonly disabled data-field="adminComment"  rows='2' type="text" placeholder="Add Comment"></textarea>
+            <pre data-appendFromTo='true'>${adminComment}</pre>
+            <div class='m-button m-button-editable' data-bind-click='editField'></div>
+        </td>
         <td data-format='date'>${timestamp}</td>
         <td>
             <a href="#" data-bind-click='deleteRow'><button type="button" class="btn btn-danger" >Удалить</button></a>
