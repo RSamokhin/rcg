@@ -168,6 +168,9 @@ window.Handlers = {
                 $dbutton.closest('tr').remove();
             }
         },
+        clearAllFilters:function (e) {
+            $('.header').find('li.active[role="presentation"]>a').trigger('click');
+        },
         showVacancyReplies: function (e) {
             e.preventDefault();
             location = location.origin + $(this).attr('href');
