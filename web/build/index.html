@@ -230,7 +230,18 @@
                 <td>${newsId}</td>
                 <td>${News_title}</td>
                 <td data-format='jsonTable'>${text}</td>
-                <td>${commentStatus}</td>
+                <td>
+                    <input data-format='select' data-precompile='getSelectedValue' readonly data-field="commentStatus" placeholder="Set the status" value='${commentStatus}'/>
+                    <select disabled readonly class="form-control" style='width:85%;'>
+                        <option data-default-value='true'>Новая</option>
+                        <option>В ожидании</option>
+                        <option>Просмотрена</option>
+                        <option>Принята</option>
+                        <option>Отклонена</option>
+                        <option>Требует согласования</option>
+                    </select>
+                    <div class='m-button m-button-editable' data-bind-click='editField'></div>
+                </td>
                 <td>${adminComment}</td>
                 <td data-format='date'>${timestamp}</td>
                 <td>

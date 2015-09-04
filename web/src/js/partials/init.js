@@ -47,6 +47,15 @@ window.Handlers = {
                                 var newValue = $td.val();
                                 $td.parent().find('[type="radio"][value="' + newValue + '"]').attr('checked', true);
                                 $td.hide();
+                                break;
+                            case 'select':
+                                var newValue = $td.val();
+                                newValue = [].some.call($td.parent().find('option'), function (el) {
+                                    return el.innerText === newValue;
+                                }) ? newValue : $td.parent().find('[data-default-value=true]').text();
+                                $td.parent().find('select').val(newValue);
+                                $td.hide();
+                                break;
                         }
                     });
                 }
@@ -55,11 +64,11 @@ window.Handlers = {
         },
         editField: function (e) {
             var $button = $(this),
-                $field = $(this).parent().find('input, textarea').eq(0);
+                $field = $(this).parent().find('input, textarea, select').eq(0);
             if ($button.hasClass('m-button-editable')) {
                 $button.removeClass('m-button-editable').addClass('m-button-saveable');
                 $field.focus();
-                $button.parent().find('input, textarea').attr({
+                $button.parent().find('input, textarea, select').attr({
                     'readonly': false,
                     'disabled': false
                 });
@@ -73,10 +82,12 @@ window.Handlers = {
                             case 'toISOString':
                                 newValue = new Date(newValue);
                                 break;
-                            case 'getCheckedRadio': {
+                            case 'getCheckedRadio':
                                 newValue = $field.parent().find('[type=radio]:checked').val() ? $field.parent().find('[type=radio]:checked').val() : 0;
-                                break
-                            }
+                                break;
+                            case 'getSelectedValue':
+                                newValue = $field.parent().find('select').val();
+                                break;
                         }
                     }
                     fullData[$field.attr('data-field')] = newValue;
@@ -86,7 +97,7 @@ window.Handlers = {
                         data: fullData,
                         success: function () {
                             $button.addClass('m-button-editable').removeClass('m-button-saveable');
-                            $button.parent().find('input, textarea').attr({
+                            $button.parent().find('input, textarea, select').attr({
                                 'readonly': true,
                                 'disabled': true
                             });
@@ -96,7 +107,7 @@ window.Handlers = {
                     });
                 } else {
                     $button.addClass('m-button-editable').removeClass('m-button-saveable');
-                    $button.parent().find('input, textarea').attr({
+                    $button.parent().find('input, textarea, select').attr({
                         'readonly': true,
                         'disabled': true
                     });
