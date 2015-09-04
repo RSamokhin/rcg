@@ -88,6 +88,11 @@ window.Handlers = {
                             case 'getSelectedValue':
                                 newValue = $field.parent().find('select').val();
                                 break;
+                            case 'appendFromTo':
+                                newValue = $field.parent().find('[data-appendfromto="true"]').html() + '\n' + newValue;
+                                $field.parent().find('[data-appendfromto="true"]').html(newValue);
+                                $field.val('');
+                                break;
                         }
                     }
                     fullData[$field.attr('data-field')] = newValue;
