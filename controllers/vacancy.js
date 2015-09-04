@@ -60,7 +60,8 @@ module.exports.listReplies = function * (newsId) {
                 model: models.News,
                 where: {
                     isVacancy: true
-                }
+                },
+                include: [models.Vacancy]
             }
         ]
     });
