@@ -36,7 +36,7 @@
                                        role="tab"
                                        data-bind-click="requestTableData"
                                        data-append-from="replies"
-                                       data-request-url="/vacancy/replies/"
+                                       data-request-url="/vacancy/:newsId/replies/"
                                        data-request-template-id="replyRow"
                                        data-toggle="tab">Отклики</a>
                             </li>
@@ -219,7 +219,7 @@
                 <td data-format='date'>${datePublished}</td>
                 <td>
                     <a href="#" data-bind-click='deleteRow'><button type="button" class="btn btn-danger" >Удалить</button></a>
-                    <a href="/#replies$$$vid=${id}" data-bind-click='showVacancyReplies'><button type="button" class="btn btn-warning" >Отклики</button></a>
+                    <a href="/#replies$$$newsId=${id}" data-bind-click='showVacancyReplies'><button type="button" class="btn btn-warning" >Отклики</button></a>
                 </td>
             </tr>
         </script>
