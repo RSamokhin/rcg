@@ -4,14 +4,20 @@ var parse = require('co-body');
 var models = require("../models");
 var Sequelize = require('sequelize');
 
+var common = require("./common");
+
 module.exports.list = function * () {
     var start = this.query['start'] | 0;
     var count = this.query['count'] !== undefined ? (this.query['count'] | 0) : 10;
     count = Math.max(count, 1);
     start = Math.max(start, 0);
+
+    var where = common.createWhere(models.Feedback, this.query);
+
     var feedbacks = yield models.Feedback.findAll({
         limit: count,
-        offset: start
+        offset: start,
+        where: where
     });
     this.body = feedbacks.map(feedback => feedback.toJSON());
 };

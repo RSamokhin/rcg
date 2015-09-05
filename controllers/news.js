@@ -3,19 +3,23 @@ var parse = require('co-body');
 
 var models = require("../models");
 
+var common = require("./common");
+
 module.exports.listNews = function * () {
+
     var start = this.query['start'] | 0;
     var count = this.query['count'] !== undefined ? (this.query['count'] | 0) : 10;
     count = Math.max(count, 1);
     start = Math.max(start, 0);
+
+    var where = common.createWhere(models.News, this.query);
+    where['isVacancy'] = false;
+    where['isProject'] = false;
+    where['isDraft'] = false;
     var news = yield models.News.findAll({
         limit: count,
         offset: start,
-        where: {
-            isVacancy: false,
-            isProject: false,
-            isDraft: false
-        },
+        where: where,
         order: [['datepubliched', 'DESC']]
     });
     this.body = news.map(news => news.toJSON());
@@ -58,10 +62,10 @@ module.exports.deleteNews = function * (newsId) {
 
 module.exports.showComments = function * (newsId) {
 
+    var where = common.createWhere(models.NewsComments, this.query);
+    where['newsId'] = newsId | 0;
     var newsComments = yield models.NewsComments.findAll({
-        where: {
-            newsId: newsId | 0
-        },
+        where: where,
         order: [['timestamp', 'DESC']]
     });
     this.body = newsComments.map(newsComment => newsComment.toJSON());
