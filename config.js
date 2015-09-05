@@ -7,6 +7,10 @@ var cfg = {
         options: {
             encrypt: true
         }
+    },
+    token: {
+        secret: 'asd23blkmsldkjhnwisdignaoiv hb',
+        expires: 7 * 24 * 60 * 60 // 7 дней
     }
 };
 module.exports = cfg;
