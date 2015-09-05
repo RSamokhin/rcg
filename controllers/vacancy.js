@@ -4,21 +4,24 @@ var parse = require('co-body');
 var models = require("../models");
 var Sequelize = require('sequelize');
 
+var common = require("./common");
+
 module.exports.listVacancies = function * () {
     var start = this.query['start'] | 0;
     var count = this.query['count'] !== undefined ? (this.query['count'] | 0) : 10;
     count = Math.max(count, 1);
     start = Math.max(start, 0);
 
+    var where = common.createWhere(models.News, this.query);
+    where['isVacancy'] = true;
+    where['isProject'] = false;
+    where['isDraft'] = false;
+
     var vacancies = yield models.News.findAll({
         include: [models.Vacancy],
         limit: count,
         offset: start,
-        where: {
-            isVacancy: true,
-            isProject: false,
-            isDraft: false
-        },
+        where: where,
         order: [['datepubliched', 'DESC']]
     });
     this.body = vacancies.map(vacancy => vacancy.toJSON());
@@ -30,13 +33,14 @@ module.exports.listVacancyReplies = function * (newsId) {
     count = Math.max(count, 1);
     start = Math.max(start, 0);
 
+    var where = common.createWhere(models.NewsComments, this.query);
+    where['newsId'] = newsId | 0;
+    where['commentType'] = 'vacancyReply';
+
     var newsComments = yield models.NewsComments.findAll({
         limit: count,
         offset: start,
-        where: {
-            newsId: newsId | 0,
-            commentType: 'vacancyReply'
-        },
+        where: where,
         order: [['timestamp', 'DESC']]
     });
     this.body = newsComments.map(newsComment => newsComment.toJSON());
@@ -48,12 +52,13 @@ module.exports.listReplies = function * (newsId) {
     count = Math.max(count, 1);
     start = Math.max(start, 0);
 
+    var where = common.createWhere(models.NewsComments, this.query);
+    where['commentType'] = 'vacancyReply';
+
     var newsComments = yield models.NewsComments.findAll({
         limit: count,
         offset: start,
-        where:{
-            commentType: 'vacancyReply'
-        },
+        where: where,
         order: [['timestamp', 'DESC']],
         include: [
             {
