@@ -3,9 +3,14 @@ var serve = require('koa-static');
 var route = require('koa-route');
 var koa = require('koa');
 var path = require('path');
-var app = module.exports = koa();
 var co = require('co');
-var serveStatic = require('koa-serve-static');
+//var serveStatic = require('koa-serve-static');
+var serveStatic = require('koa-static');
+var jwt = require('koa-jwt');
+
+var app = module.exports = koa();
+
+var cfg = require("./config");
 
 var models = require("./models");
 
@@ -13,10 +18,16 @@ var news = require('./controllers/news');
 var vacancy = require('./controllers/vacancy');
 var replies = require('./controllers/replies');
 var images = require('./controllers/images');
+var token = require('./controllers/token');
 var common = require('./controllers/common');
 
 
 var feedbacks = require('./controllers/feedback');
+
+
+app.use(serveStatic('web/build/'));
+
+app.use(jwt({ secret: cfg.token.secret }));
 
 app.use(route.get('/news', news.listNews));
 app.use(route.get('/vacancy', vacancy.listVacancies));
@@ -43,7 +54,7 @@ app.use(route.del('/feedbacks/:id', common.del(models.Feedback)));
 app.use(route.post('/images/', images.add));
 app.use(route.get('/images/:fname', images.get));
 
-app.use(serveStatic('web/build/'));
+app.use(route.post('/token', token.getToken));
 
 
 if (!module.parent) 
