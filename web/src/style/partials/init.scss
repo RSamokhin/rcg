@@ -49,3 +49,6 @@ body {
 [data-format=jsonTable] {
     max-width: 700px;
 }
+a.thumbnail > img {
+    max-height: 100px;
+}
