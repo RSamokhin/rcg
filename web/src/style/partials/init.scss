@@ -2,6 +2,10 @@ body {
     min-width: 1500px;
 }
 .list {
+    &__showmore-container {
+        width: 30%;
+        margin-left: 35%;
+    }
     &__add-button, &__clear-button {
         position: absolute;
         top: 4px;
