@@ -27,21 +27,22 @@ var feedbacks = require('./controllers/feedback');
 
 app.use(serveStatic('web/build/'));
 
-app.use(jwt({ secret: cfg.token.secret }));
-
 app.use(route.get('/news', news.listNews));
 app.use(route.get('/vacancy', vacancy.listVacancies));
 app.use(route.get('/news/:id', news.show));
+app.use(route.get('/vacancy/:id', vacancy.show));
+app.use(route.get('/vacancy/:id/replies', vacancy.listVacancyReplies));
+app.use(route.put('/vacancy/:id/replies', vacancy.addVacancyReply));
+
+app.use(jwt({ secret: cfg.token.secret }));
+
 app.use(route.post('/news/:id', news.updateNews));
 app.use(route.del('/news/:id', common.del(models.News)));
 app.use(route.del('/vacancy/:id', common.del(models.News)));
 app.use(route.get('/news/:id/comments', news.showComments));
 app.use(route.put('/news', news.add));
 app.use(route.get('/vacancy/replies', vacancy.listReplies));
-app.use(route.get('/vacancy/:id', vacancy.show));
 app.use(route.post('/vacancy/:id', vacancy.updateVacancy));
-app.use(route.get('/vacancy/:id/replies', vacancy.listVacancyReplies));
-app.use(route.put('/vacancy/:id/replies', vacancy.addVacancyReply));
 app.use(route.get('/replies/:id', replies.showReply));
 app.use(route.del('/replies/:id', common.del(models.NewsComments)));
 app.use(route.post('/replies/:id', replies.updateReply));
