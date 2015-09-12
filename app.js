@@ -19,6 +19,7 @@ var vacancy = require('./controllers/vacancy');
 var replies = require('./controllers/replies');
 var images = require('./controllers/images');
 var token = require('./controllers/token');
+var devices = require('./controllers/devices');
 var common = require('./controllers/common');
 
 
@@ -34,8 +35,11 @@ app.use(route.get('/vacancy/:id', vacancy.show));
 app.use(route.get('/vacancy/:id/replies', vacancy.listVacancyReplies));
 app.use(route.put('/vacancy/:id/replies', vacancy.addVacancyReply));
 
+app.use(route.post('/token', token.getToken));
+
 app.use(jwt({ secret: cfg.token.secret }));
 
+app.use(route.put('/devices', devices.add));
 app.use(route.post('/news/:id', news.updateNews));
 app.use(route.del('/news/:id', common.del(models.News)));
 app.use(route.del('/vacancy/:id', common.del(models.News)));
@@ -54,9 +58,6 @@ app.use(route.del('/feedbacks/:id', common.del(models.Feedback)));
 
 app.use(route.post('/images/', images.add));
 app.use(route.get('/images/:fname', images.get));
-
-app.use(route.post('/token', token.getToken));
-
 
 if (!module.parent) 
 {
