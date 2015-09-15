@@ -50,63 +50,60 @@ window.Handlers = {
                 url = false;
             }
             if (url) {
-            $.ajax({
-                url: url,
-                    data: {
-                        start: $showMore.attr('data-start') ? $showMore.attr('data-start') : 0
-                    },
-                success: function (data) {
-                    data = data.map(function (d, i) {
-                        d = JSON.flatten(d, '_');
-                        d.data = encodeURI(JSON.stringify(d));
-                        return d;
-                    });
-                        if (newData) {
-                    $('[data-append-to='+aim+'] > tbody').html('');
-                        }
-                    $('#'+templateId).tmpl(data).appendTo('[data-append-to='+aim+']');
-                    $('[data-append-to='+aim+']').find('[data-format]').each(function () {
-                        var $td = $(this);
-                        switch ($td.attr('data-format')) {
-                            case 'date':
-                                    var newDate = $td.val() ? new Date($td.val()) : new Date($td.text());
-                                    $td.val() ? $td.val(newDate.toString().split(' ').slice(0,-2).join(' ')) : $td.text(newDate.toString().split(' ').slice(0,-2).join(' '));
+                $.ajax({
+                    url: url,
+                        data: {
+                            start: $showMore.attr('data-start') ? $showMore.attr('data-start') : 0
+                        },
+                    success: function (data) {
+                        data = data.map(function (d, i) {
+                            d = JSON.flatten(d, '_');
+                            d.data = encodeURI(JSON.stringify(d));
+                            return d;
+                        });
+                            if (newData) {
+                        $('[data-append-to='+aim+'] > tbody').html('');
+                            }
+                        $('#'+templateId).tmpl(data).appendTo('[data-append-to='+aim+']');
+                        $('[data-append-to='+aim+']').find('[data-format]').each(function () {
+                            var $td = $(this);
+                            switch ($td.attr('data-format')) {
+                                case 'date':
+                                        var newDate = $td.val() ? new Date($td.val()) : new Date($td.text());
+                                        $td.val() ? $td.val(newDate.toString().split(' ').slice(0, -2).join(' ')) : $td.text(newDate.toString().split(' ').slice(0, -2).join(' '));
+                                        break;
+                                case 'jsonTable':
+                                    try {
+                                        var tdData = JSON.parse($td.text());
+                                        var $innerTable = $('<table/>').addClass('table reply-info');
+                                        $td.html('');
+                                        $innerTable.appendTo($td);
+                                        Object.keys(tdData).forEach(function (key) {
+                                            var $innerRow = $('<tr/>');
+                                            $innerRow.appendTo($innerTable);
+                                            $('<td/>').text(key).appendTo($innerRow);
+                                            $('<td/>').text(tdData[key]).appendTo($innerRow);
+                                        });
+                                    } catch (e) {}
                                     break;
-                            case 'jsonTable':
-                                try {
-                                    var tdData = JSON.parse($td.text());
-                                    var $innerTable = $('<table/>').addClass('table reply-info');
-                                    $td.html('');
-                                    $innerTable.appendTo($td);
-                                    Object.keys(tdData).forEach(function (key) {
-                                        var $innerRow = $('<tr/>');
-                                        $innerRow.appendTo($innerTable);
-                                        $('<td/>').text(key).appendTo($innerRow);
-                                        $('<td/>').text(tdData[key]).appendTo($innerRow);
-                                    });
-                                } catch (e) {}
-                                break;
-                            case 'radio':
-                                var newValue = $td.val();
-                                $td.parent().find('[type="radio"][value="' + newValue + '"]').attr('checked', true);
-                                $td.hide();
-                                break;
-                            case 'select':
-                                var newValue = $td.val();
-                                newValue = [].some.call($td.parent().find('option'), function (el) {
-                                    return el.innerText === newValue;
-                                }) ? newValue : $td.parent().find('[data-default-value=true]').text();
-                                $td.parent().find('select').val(newValue);
-                                $td.hide();
-                                break;
-                        }
-                    });
-                }
-            });
-            }
-            var scrollmem = $('body').scrollTop();
-            location.hash = location.hash.split('$$$')[0];
-            $('body').scrollTop(scrollmem);
+                                case 'radio':
+                                    var newValue = $td.val();
+                                    $td.parent().find('[type="radio"][value="' + newValue + '"]').attr('checked', true);
+                                    $td.hide();
+                                    break;
+                                case 'select':
+                                    var newValue = $td.val();
+                                    newValue = [].some.call($td.parent().find('option'), function (el) {
+                                        return el.innerText === newValue;
+                                    }) ? newValue : $td.parent().find('[data-default-value=true]').text();
+                                    $td.parent().find('select').val(newValue);
+                                    $td.hide();
+                                    break;
+                            }
+                        });
+                    }
+                });
+            };
         },
         editField: function (e) {
             var $button = $(this),
