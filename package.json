@@ -6,6 +6,7 @@
     "start": "forever stopall && forever --watch --watchDirectory ./  start -c 'node --harmony' app.js && forever list"
   },
   "dependencies": {
+    "apn": "^1.7.4",
     "co": "*",
     "co-body": "*",
     "co-busboy": "^1.3.0",

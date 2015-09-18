@@ -6,6 +6,8 @@ var Sequelize = require('sequelize');
 
 var common = require("./common");
 
+var apns = require('../apns.js');
+
 module.exports.listVacancies = function * () {
     var start = this.query['start'] | 0;
     var count = this.query['count'] !== undefined ? (this.query['count'] | 0) : 10;
@@ -141,6 +143,9 @@ module.exports.add = function * () {
     });
 
     this.status = 200;
+
+    if (news['sendAlert'] && news['sendAlert'] !== 'false')
+        apns.pushToDevices('New vacancy!');
 };
 
 module.exports.updateVacancy = function * (id) {

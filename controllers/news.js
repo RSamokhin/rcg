@@ -5,6 +5,8 @@ var models = require("../models");
 
 var common = require("./common");
 
+var apns = require('../apns.js');
+
 module.exports.listNews = function * () {
 
     var start = this.query['start'] | 0;
@@ -106,6 +108,9 @@ module.exports.add = function * () {
     });
     this.status = 200;
     this.body = insertedNews.toJSON();
+
+    if (news['sendAlert'] && news['sendAlert'] !== 'false')
+        apns.pushToDevices('New news!');
 };
 
 module.exports.updateNews = function * (newsId) {
