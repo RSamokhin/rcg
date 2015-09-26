@@ -43,6 +43,7 @@ app.use(route.get('/images/:fname', images.get));
 app.use(route.put('/devices', devices.add));
 
 app.use(route.post('/token', token.getToken));
+app.use(route.get('/token/check', token.checToken));
 
 app.use(jwt({ secret: cfg.token.secret }));
 
