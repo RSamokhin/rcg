@@ -9,6 +9,5 @@
   },
   "_source": "git://github.com/jquery/jquery-tmpl.git",
   "_target": "*",
-  "_originalSource": "jquery-tmpl",
-  "_direct": true
+  "_originalSource": "jquery-tmpl"
 }

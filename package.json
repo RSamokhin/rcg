@@ -23,5 +23,8 @@
     "sync-request": "^2.0.1",
     "tedious": "^1.11.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "forever": "*",
+    "forever-monitor": "*"
+  }
 }
