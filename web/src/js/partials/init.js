@@ -347,7 +347,7 @@ function setAuthDialog () {
         success: function (data) {
             console.log(data);
             $.cookie('JSONTOKEN', data.token);
-            //location.reload();
+            location.reload();
         },
         error: function (data) {
             alert('Wrong Data');
