@@ -310,5 +310,47 @@ $(function () {
     } else {
         $('.nav.nav-tabs').find('[href=' + location.hash.split('$$$')[0] + "]").trigger('click');
     }
+
+    if ($.cookie('JSONTOKEN')) {
+        $.ajax({
+            headers: {
+                Authorization: 'Bearer ' + $.cookie('JSONTOKEN')
+            },
+            url: '/token/check',
+            success: function (data) {
+                if (data.authorized) {
+                    $.ajaxSetup({
+                        headers: {
+                            'Authorization': 'Bearer ' + $.cookie('JSONTOKEN')
+                        }
+                    });
+                }
+            }
+        });
+    } else {
+        setAuthDialog();
+    }
+
 });
 
+function setAuthDialog () {
+    var login = prompt("Login", ''),
+        pwd = prompt("Password", '');
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: 'token',
+        data: {
+            phone: login,
+            password: pwd
+        },
+        success: function (data) {
+            console.log(data);
+            $.cookie('JSONTOKEN', data.token);
+            //location.reload();
+        },
+        error: function (data) {
+            alert('Wrong Data');
+        }
+    });
+}
