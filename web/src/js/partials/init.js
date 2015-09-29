@@ -56,6 +56,11 @@ window.Handlers = {
                             start: $showMore.attr('data-start') ? $showMore.attr('data-start') : 0
                         },
                     success: function (data) {
+                        if (!data.length) {
+                            $('[data-bind-click="showMoreTableInfo"]').hide();
+                        } else {
+                            $('[data-bind-click="showMoreTableInfo"]').show();
+                        }
                         data = data.map(function (d, i) {
                             d = JSON.flatten(d, '_');
                             d.data = encodeURI(JSON.stringify(d));
