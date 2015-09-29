@@ -150,15 +150,16 @@ window.Handlers = {
             e.preventDefault();
             $(this).tab('show');
         },
-        showMoreTableInfo: function (e) {
-            $showMore = $(this);
+        showMoreTableInfo: function () {
+            var $showMore = $(this),
+                $activeA = $('li[role="presentation"][class="active"] > a');
             $showMore.attr({
                 'data-start': $showMore.attr('data-start') ? parseInt($showMore.attr('data-start')) + 10 : 10,
-                'data-active-tab': $('li[role="presentation"][class="active"] > a').attr('aria-controls')
+                'data-active-tab': $activeA.attr('aria-controls')
             });
-            window.Handlers.click.requestTableData.bind($('li[role="presentation"][class="active"] > a'))()
+            window.Handlers.click.requestTableData.bind($activeA)()
         },
-        requestTableData: function (e) {
+        requestTableData: function () {
             var $tab =$(this),
                 templateId = $tab.attr('data-request-template-id'),
                 url = $tab.attr('data-request-url'),
@@ -202,12 +203,13 @@ window.Handlers = {
                             start: $showMore.attr('data-start') ? $showMore.attr('data-start') : 0
                         },
                     success: function (data) {
+                        var $showMoreButton = $('[data-bind-click="showMoreTableInfo"]');
                         if (!data.length) {
-                            $('[data-bind-click="showMoreTableInfo"]').hide();
+                            $showMoreButton.hide();
                         } else {
-                            $('[data-bind-click="showMoreTableInfo"]').show();
+                            $showMoreButton.show();
                         }
-                        data = data.map(function (d, i) {
+                        data = data.map(function (d) {
                             d = JSON.flatten(d, '_');
                             d.data = encodeURI(JSON.stringify(d));
                             return d;
@@ -217,7 +219,8 @@ window.Handlers = {
                             }
                         $('#'+templateId).tmpl(data).appendTo('[data-append-to='+aim+']');
                         $('[data-append-to='+aim+']').find('[data-format]').each(function () {
-                            var $td = $(this);
+                            var $td = $(this),
+                                newValue;
                             switch ($td.attr('data-format')) {
                                 case 'date':
                                         var newDate = $td.val() ? new Date($td.val()) : new Date($td.text());
@@ -238,12 +241,12 @@ window.Handlers = {
                                     } catch (e) {}
                                     break;
                                 case 'radio':
-                                    var newValue = $td.val();
+                                    newValue = $td.val();
                                     $td.parent().find('[type="radio"][value="' + newValue + '"]').attr('checked', true);
                                     $td.hide();
                                     break;
                                 case 'select':
-                                    var newValue = $td.val();
+                                    newValue = $td.val();
                                     newValue = [].some.call($td.parent().find('option'), function (el) {
                                         return el.innerText === newValue;
                                     }) ? newValue : $td.parent().find('[data-default-value=true]').text();
@@ -256,7 +259,7 @@ window.Handlers = {
                 });
             };
         },
-        editField: function (e) {
+        editField: function () {
             var $button = $(this),
                 $field = $(this).parent().find('input, textarea, select').eq(0);
             if ($button.hasClass('m-button-editable')) {
@@ -333,15 +336,24 @@ window.Handlers = {
                 $dbutton.closest('tr').remove();
             }
         },
-        clearAllFilters:function (e) {
-            $('.header').find('li.active[role="presentation"]>a').trigger('click');
+        clearAllFilters: function (e) {
+            var $activeTab = $('.header').find('li.active[role="presentation"]>a'),
+                url = $activeTab.attr('data-request-url');
+            location.hash.split('$$$').filter(function (point) {
+                return ~point.indexOf('=');
+            }).map(function (point) {
+                return ':' + point.split('=')[0];
+            }).forEach(function (point) {
+                url = url.replace(point, '').replace(/\/\//, '/');
+            });
+            $activeTab.attr('data-request-url', url).trigger('click');
         },
         showVacancyReplies: function (e) {
             e.preventDefault();
             location = location.origin + $(this).attr('href');
             location.reload();
         },
-        addNewEntry: function (e) {
+        addNewEntry: function () {
             var $addButon = $(this),
                 where = $addButon.closest('[role=tabpanel]').attr('id'),
                 $tbody = $addButon.closest('[role=tabpanel]').find('tbody'),
@@ -359,7 +371,7 @@ window.Handlers = {
                     url: $addButon.closest('[role=tabpanel]').find('table').attr('data-add-url'),
                     type: 'PUT',
                     data: data,
-                    success: function (data) {
+                    success: function () {
                         $addButon.removeClass('btn-success').addClass('btn-info').text('Добавить');
                         window.Handlers.click.requestTableData.bind($('a[href="#' + where + '"]'))()
                     }
@@ -377,7 +389,7 @@ window.Handlers = {
                     $target.attr('src', $input.val());
             }
         },
-        'uploadImage': function (e) {
+        'uploadImage': function () {
             var pictureInput = this;
             var myFormData = new FormData();
             myFormData.append('pictureFile', pictureInput.files[0]);
@@ -456,10 +468,11 @@ Object.keys(window.Handlers).forEach(function (bindFunctionEvent) {
     });
 });
 $(function () {
-    if (!location.hash || $('.nav.nav-tabs').find('[href=' + location.hash.split('$$$')[0] + "]").length === 0){
-        $('.nav.nav-tabs').children().eq(0).find('a').trigger('click');
+    var $navTabs = $('.nav.nav-tabs');
+    if (!location.hash || $navTabs.find('[href=' + location.hash.split('$$$')[0] + "]").length === 0){
+        $navTabs.children().eq(0).find('a').trigger('click');
     } else {
-        $('.nav.nav-tabs').find('[href=' + location.hash.split('$$$')[0] + "]").trigger('click');
+        $navTabs.find('[href=' + location.hash.split('$$$')[0] + "]").trigger('click');
     }
 
     if ($.cookie('JSONTOKEN')) {
@@ -500,7 +513,7 @@ function setAuthDialog () {
             $.cookie('JSONTOKEN', data.token);
             location.reload();
         },
-        error: function (data) {
+        error: function () {
             alert('Wrong Data');
         }
     });
