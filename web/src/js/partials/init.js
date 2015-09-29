@@ -148,6 +148,8 @@ window.Handlers = {
                                 $field.parent().find('[data-appendfromto="true"]').html(newValue);
                                 $field.val('');
                                 break;
+                            case 'getCheckedBit':
+                                newValue = $field.prop('checked') ? 1 : 0;
                         }
                     }
                     fullData[$field.attr('data-field')] = newValue;

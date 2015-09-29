@@ -6,6 +6,10 @@
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>
+            <input data-field="sendAlert" readonly disabled type='checkbox' data-precompile="getCheckedBit"/>
+            <div class='m-button m-button-editable' data-bind-click='editField'></div>
+        </td>
+        <td>
             <input readonly disabled  data-target-selector='.news-picture-${id}' data-field="picture" data-bind-change='refreshImage' type="text" placeholder="No Picture Url" value="${picture}"/>
             <a class="thumbnail">
               <img class='news-picture-${id}' src="${picture}" class="div-circle" alt="No Picture">
@@ -30,6 +34,10 @@
         <td>${id}</td>
         <td>
             <textarea readonly disabled data-field="title"  rows='2' type="text" placeholder="No Title">${title}</textarea>
+            <div class='m-button m-button-editable' data-bind-click='editField'></div>
+        </td>
+        <td>
+            <input data-field="sendAlert" readonly disabled type='checkbox' data-precompile="getCheckedBit"/>
             <div class='m-button m-button-editable' data-bind-click='editField'></div>
         </td>
         <td>
