@@ -37,14 +37,16 @@
                                data-bind-click="requestTableData"
                                data-append-from="replies"
                                data-request-url="/vacancy/:newsId/replies/"
-                               data-default-url="/replies/"
                                data-request-template-id="replyRow"
                                data-toggle="tab">Отклики</a>
                     </li>
                     <li role="presentation">
-                        <a href="#feedback"
-                           aria-controls="feedback"
+                        <a href="#feedbacks"
+                           aria-controls="feedbacks"
+                           data-request-url="/feedbacks"
+                           data-append-from="feedbacks"
                            role="tab"
+                           data-request-template-id="feedbackRow"
                            data-bind-click="requestTableData"
                            data-toggle="tab">Обратная связь</a>
                     </li>

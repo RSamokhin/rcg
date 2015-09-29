@@ -37,14 +37,16 @@
                                        data-bind-click="requestTableData"
                                        data-append-from="replies"
                                        data-request-url="/vacancy/:newsId/replies/"
-                                       data-default-url="/replies/"
                                        data-request-template-id="replyRow"
                                        data-toggle="tab">Отклики</a>
                             </li>
                             <li role="presentation">
-                                <a href="#feedback"
-                                   aria-controls="feedback"
+                                <a href="#feedbacks"
+                                   aria-controls="feedbacks"
+                                   data-request-url="/feedbacks"
+                                   data-append-from="feedbacks"
                                    role="tab"
+                                   data-request-template-id="feedbackRow"
                                    data-bind-click="requestTableData"
                                    data-toggle="tab">Обратная связь</a>
                             </li>
@@ -142,7 +144,29 @@
                         </table>
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane fade" id="feedback"><div class="alert alert-danger" role="alert">You are not prepared</div></div>
+                <div role="tabpanel" class="tab-pane fade" id="feedbacks">
+                    <div class="table-responsive">
+                        <table class="table table-hover list"
+                               data-append-to="feedbacks"
+                               data-delete-url="/feedbacks/:key"
+                               data-delete-key="id"
+                               data-update-url="/feedbacks/:key"
+                               data-update-key="id">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>EMAIL</th>
+                                    <th>Phone</th>
+                                    <th>Text</th>
+                                    <th>Status</th>
+                                    <th>Reply</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </section>
         <script id="newsRow" type="text/x-jquery-tmpl">
@@ -265,6 +289,35 @@
                     <div class='m-button m-button-editable' data-bind-click='editField'></div>
                 </td>
                 <td data-format='date'>${timestamp}</td>
+                <td>
+                    <a href="#" data-bind-click='deleteRow'><button type="button" class="btn btn-danger" >Удалить</button></a>
+                </td>
+            </tr>
+        </script>
+        <script id="feedbackRow" type="text/x-jquery-tmpl">
+            <tr data-parsed="${data}">
+                <td>${id}</td>
+                <td>${name}</td>
+                <td>${email}</td>
+                <td>${phone}</td>
+                <td>${text}</td>
+                <td>
+                    <input data-format='select' data-precompile='getSelectedValue' readonly data-field="status" placeholder="Set the status" value='${status}'/>
+                    <select disabled readonly class="form-control" style='width:85%;'>
+                        <option data-default-value='true'>Новая</option>
+                        <option>В ожидании</option>
+                        <option>Просмотрена</option>
+                        <option>Принята</option>
+                        <option>Отклонена</option>
+                        <option>Требует согласования</option>
+                    </select>
+                    <div class='m-button m-button-editable' data-bind-click='editField'></div>
+                </td>
+                <td>
+                    <textarea data-precompile='appendFromTo' readonly disabled data-field="replyComment"  rows='2' type="text" placeholder="Add Comment"></textarea>
+                    <pre data-appendFromTo='true'>${replyComment}</pre>
+                    <div class='m-button m-button-editable' data-bind-click='editField'></div>
+                </td>
                 <td>
                     <a href="#" data-bind-click='deleteRow'><button type="button" class="btn btn-danger" >Удалить</button></a>
                 </td>
