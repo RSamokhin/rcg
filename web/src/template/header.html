@@ -30,13 +30,14 @@
                            data-request-url="/vacancy"
                            data-request-template-id="vacancyRow"
                            data-toggle="tab">Вакансии</a></li>
-                    <li role="presentation">
+                    <li role="presentation" style="display: none;">
                         <a href="#replies"
                                aria-controls="replies"
                                role="tab"
                                data-bind-click="requestTableData"
                                data-append-from="replies"
                                data-request-url="/vacancy/:newsId/replies/"
+                               data-default-url="/replies/"
                                data-request-template-id="replyRow"
                                data-toggle="tab">Отклики</a>
                     </li>

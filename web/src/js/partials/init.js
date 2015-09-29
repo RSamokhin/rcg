@@ -51,12 +51,13 @@ window.Handlers = {
             } catch( e ) {
                 url = false;
             }
-            if (url) {
+            if (!url) {
+            } else {
                 $.ajax({
                     url: url,
-                        data: {
-                            start: $showMore.attr('data-start') ? $showMore.attr('data-start') : 0
-                        },
+                    data: {
+                        start: $showMore.attr('data-start') ? $showMore.attr('data-start') : 0
+                    },
                     success: function (data) {
                         var $showMoreButton = $('[data-bind-click="showMoreTableInfo"]');
                         if (!data.length) {
@@ -69,19 +70,19 @@ window.Handlers = {
                             d.data = encodeURI(JSON.stringify(d));
                             return d;
                         });
-                            if (newData) {
-                        $('[data-append-to='+aim+'] > tbody').html('');
-                            }
-                        $('#'+templateId).tmpl(data).appendTo('[data-append-to='+aim+']');
-                        $('[data-append-to='+aim+']').find('[data-format]').each(function () {
+                        if (newData) {
+                            $('[data-append-to=' + aim + '] > tbody').html('');
+                        }
+                        $('#' + templateId).tmpl(data).appendTo('[data-append-to=' + aim + ']');
+                        $('[data-append-to=' + aim + ']').find('[data-format]').each(function () {
                             var $td = $(this),
                                 $parent = $td.parent(),
                                 newValue;
                             switch ($td.attr('data-format')) {
                                 case 'date':
-                                        var newDate = $td.val() ? new Date($td.val()) : new Date($td.text());
-                                        $td.val() ? $td.val(newDate.toString().split(' ').slice(0, -2).join(' ')) : $td.text(newDate.toString().split(' ').slice(0, -2).join(' '));
-                                        break;
+                                    var newDate = $td.val() ? new Date($td.val()) : new Date($td.text());
+                                    $td.val() ? $td.val(newDate.toString().split(' ').slice(0, -2).join(' ')) : $td.text(newDate.toString().split(' ').slice(0, -2).join(' '));
+                                    break;
                                 case 'jsonTable':
                                     try {
                                         var tdData = JSON.parse($td.text());
@@ -94,7 +95,8 @@ window.Handlers = {
                                             $('<td/>').text(key).appendTo($innerRow);
                                             $('<td/>').text(tdData[key]).appendTo($innerRow);
                                         });
-                                    } catch (e) {}
+                                    } catch (e) {
+                                    }
                                     break;
                                 case 'radio':
                                     newValue = $td.val();
@@ -193,16 +195,8 @@ window.Handlers = {
             }
         },
         clearAllFilters: function () {
-            var $activeTab = $('.header').find('li.active[role="presentation"]>a'),
-                url = $activeTab.attr('data-request-url');
-            location.hash.split('$$$').filter(function (point) {
-                return ~point.indexOf('=');
-            }).map(function (point) {
-                return ':' + point.split('=')[0];
-            }).forEach(function (point) {
-                url = url.replace(point, '').replace(/\/\//, '/');
-            });
-            $activeTab.attr('data-request-url', url).trigger('click');
+            window.location = $(this).attr('data-go-to');
+            window.location.reload();
         },
         showVacancyReplies: function (e) {
             e.preventDefault();

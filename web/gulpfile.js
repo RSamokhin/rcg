@@ -18,14 +18,17 @@ var path = {
         js      : 'build/js/',
         css     : 'build/css/',
         img     : 'build/img/',
-        fonts   : 'build/fonts/'
+        fonts   : 'build/fonts/',
+        ico     : 'build/'
+
     },
     src:{
         html    : 'src/*.html',
         js      : 'src/js/main.js',
         css     : 'src/style/main.scss',
         img     : 'src/img/**/*.*',
-        fonts   : 'src/fonts/**/*.*'
+        fonts   : 'src/fonts/**/*.*',
+        ico     : 'src/*.ico'
     },
     watch:{
         html    : 'src/**/*.html',
@@ -78,7 +81,10 @@ gulp.task('image:build',function(){
             interlaced:true
         }))
         .pipe(gulp.dest(path.build.img))
-        .pipe(connect.reload())
+        .pipe(connect.reload());
+    gulp.src(path.src.ico)
+        .pipe(gulp.dest(path.build.ico))
+        .pipe(connect.reload());
 });
 gulp.task('fonts:build',function(){
     gulp.src(path.src.fonts)
