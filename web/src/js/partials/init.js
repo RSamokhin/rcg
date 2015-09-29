@@ -20,10 +20,11 @@ window.Handlers = {
                 aim = $tab.attr('data-append-from'),
                 params = {},
                 newData = true,
-                $showMore = $('[data-bind-click="showMoreTableInfo"]');
+                $showMore = $('[data-bind-click="showMoreTableInfo"]'),
+                $activeA = $('li[role="presentation"][class="active"] > a');
             if ($showMore.attr('data-active-tab') !== $tab.attr('aria-controls')) {
                 $showMore.removeAttr('data-start');
-                $showMore.attr('data-active-tab', $('li[role="presentation"][class="active"] > a').attr('aria-controls'));
+                $showMore.attr('data-active-tab', $activeA.attr('aria-controls'));
             } else {
                 newData = false;
             }
@@ -74,6 +75,7 @@ window.Handlers = {
                         $('#'+templateId).tmpl(data).appendTo('[data-append-to='+aim+']');
                         $('[data-append-to='+aim+']').find('[data-format]').each(function () {
                             var $td = $(this),
+                                $parent = $td.parent(),
                                 newValue;
                             switch ($td.attr('data-format')) {
                                 case 'date':
@@ -96,22 +98,22 @@ window.Handlers = {
                                     break;
                                 case 'radio':
                                     newValue = $td.val();
-                                    $td.parent().find('[type="radio"][value="' + newValue + '"]').attr('checked', true);
+                                    $parent.find('[type="radio"][value="' + newValue + '"]').attr('checked', true);
                                     $td.hide();
                                     break;
                                 case 'select':
                                     newValue = $td.val();
-                                    newValue = [].some.call($td.parent().find('option'), function (el) {
+                                    newValue = [].some.call($parent.find('option'), function (el) {
                                         return el.innerText === newValue;
-                                    }) ? newValue : $td.parent().find('[data-default-value=true]').text();
-                                    $td.parent().find('select').val(newValue);
+                                    }) ? newValue : $parent.find('[data-default-value=true]').text();
+                                    $parent.find('select').val(newValue);
                                     $td.hide();
                                     break;
                             }
                         });
                     }
                 });
-            };
+            }
         },
         editField: function () {
             var $button = $(this),
@@ -172,8 +174,8 @@ window.Handlers = {
         },
         deleteRow: function(e) {
             e.preventDefault();
-            $dbutton = $(this);
-            var parent = e.target;
+            var $dbutton = $(this),
+                fullData;
             if ($dbutton.closest('tr').attr('data-parsed')) {
                 fullData = JSON.parse(decodeURI($dbutton.closest('tr').attr('data-parsed')));
                 if (confirm("Вы уверены?")) {
@@ -190,7 +192,7 @@ window.Handlers = {
                 $dbutton.closest('tr').remove();
             }
         },
-        clearAllFilters: function (e) {
+        clearAllFilters: function () {
             var $activeTab = $('.header').find('li.active[role="presentation"]>a'),
                 url = $activeTab.attr('data-request-url');
             location.hash.split('$$$').filter(function (point) {
@@ -204,8 +206,8 @@ window.Handlers = {
         },
         showVacancyReplies: function (e) {
             e.preventDefault();
-            location = location.origin + $(this).attr('href');
-            location.reload();
+            window.location = window.location.origin + $(this).attr('href');
+            window.location.reload();
         },
         addNewEntry: function () {
             var $addButon = $(this),
@@ -296,6 +298,7 @@ JSON.flatten = function(data, splitter) {
     }
     var result = {};
     function recurse (cur, prop) {
+        var isEmpty = true;
         if (Object(cur) !== cur) {
             result[prop] = cur;
         } else if (Array.isArray(cur)) {
@@ -304,7 +307,6 @@ JSON.flatten = function(data, splitter) {
             if (l == 0)
                 result[prop] = [];
         } else {
-            var isEmpty = true;
             for (var p in cur) {
                 isEmpty = false;
                 recurse(cur[p], prop ? prop+splitter+p : p);
