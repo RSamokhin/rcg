@@ -218,7 +218,14 @@ window.Handlers = {
                 var data = {};
                 $addButon.closest('[role=tabpanel]').find('tbody > tr').eq(0).find('textarea, input').each(function () {
                     var fname = $(this).attr('data-field');
-                    data[fname] = $(this).val();
+                    switch ($(this).attr('type')) {
+                        case 'checkbox':
+                            data[fname] = $(this).val() === 'on' ? 1 : 0;
+                            break;
+                        default:
+                            data[fname] = $(this).val();
+                            break;
+                    }
                 });
                 $.ajax({
                     url: $addButon.closest('[role=tabpanel]').find('table').attr('data-add-url'),
