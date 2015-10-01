@@ -296,6 +296,7 @@ window.Handlers = {
                                 break;
                             case 'getCheckedBit':
                                 newValue = $field.prop('checked') ? 1 : 0;
+                                break;
                         }
                     }
                     fullData[$field.attr('data-field')] = newValue;
@@ -385,6 +386,7 @@ window.Handlers = {
             switch ($target.prop('tagName')) {
                 case 'IMG':
                     $target.attr('src', $input.val());
+                    break;
             }
         },
         'uploadImage': function () {
