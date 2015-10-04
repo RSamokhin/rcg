@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
         text: DataTypes.STRING(500),
         status: DataTypes.STRING(50),
         replyComment: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING(256),
             field: 'reply_comment'
         }
     }, {
