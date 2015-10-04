@@ -153,4 +153,7 @@ module.exports.updateNews = function * (newsId) {
     news.save();
 
     this.body = news.toJSON();
+
+    if (data['sendAlert'] && news['sendAlert'] !== 'false')
+        apns.pushToDevices('News update!');
 };

@@ -206,6 +206,9 @@ module.exports.updateVacancy = function * (id) {
     vacancy.save();
 
     this.body = news.toJSON();
+
+    if (data['sendAlert'] && news['sendAlert'] !== 'false')
+        apns.pushToDevices('Vacancy update!');
 };
 
 module.exports.addVacancyReply = function * (newsId) {
