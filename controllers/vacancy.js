@@ -142,6 +142,7 @@ module.exports.add = function * () {
         workTime: workTime
     });
 
+    this.body = insertedNews.toJSON();
     this.status = 200;
 
     if (news['sendAlert'] && news['sendAlert'] !== 'false')
@@ -207,7 +208,7 @@ module.exports.updateVacancy = function * (id) {
 
     this.body = news.toJSON();
 
-    if (data['sendAlert'] && news['sendAlert'] !== 'false')
+    if (data['sendAlert'] && data['sendAlert'] !== 'false')
         apns.pushToDevices('Vacancy update!');
 };
 
