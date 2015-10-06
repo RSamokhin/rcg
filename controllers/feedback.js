@@ -63,7 +63,7 @@ module.exports.add = function * () {
     var phone = data['phone'] || '';
     var text = data['text'] || '';
     var status = data['status'] || '';
-    var replyComment = data['replyComment'] | 0;
+    var replyComment = data['replyComment'] || '';
 
     var feedback = yield models.Feedback.create({
         name: '' + name,
@@ -71,7 +71,7 @@ module.exports.add = function * () {
         phone: '' + phone,
         text: '' + text,
         status: '' + status,
-        replyComment: replyComment
+        replyComment: '' + replyComment
     });
     this.status = 200;
     this.body = feedback.toJSON()
