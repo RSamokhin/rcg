@@ -199,10 +199,11 @@ window.Handlers = {
             }
             if (!url) {
             } else {
+                var start = $showMore.attr('data-start') ? $showMore.attr('data-start') : 0;
                 $.ajax({
                     url: url,
                     data: {
-                        start: $showMore.attr('data-start') ? $showMore.attr('data-start') : 0
+                        start: start
                     },
                     success: function (data) {
                         var $showMoreButton = $('[data-bind-click="showMoreTableInfo"]');
@@ -216,7 +217,7 @@ window.Handlers = {
                             d.data = encodeURI(JSON.stringify(d));
                             return d;
                         });
-                        if (newData) {
+                        if (newData || start === 0) {
                             $('[data-append-to=' + aim + '] > tbody').html('');
                         }
                         $('#' + templateId).tmpl(data).appendTo('[data-append-to=' + aim + ']');
