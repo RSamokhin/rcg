@@ -15,6 +15,7 @@ var cfg = {
     apns: {
         cert: __dirname + '/cert.pem',
         key: __dirname + '/key.pem'
-    }
+    },
+    url:'http://agency.cloudapp.net/'
 };
 module.exports = cfg;

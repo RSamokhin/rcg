@@ -1,6 +1,7 @@
-var fs = require('fs');
-var path = require('path');
-var parse = require('co-busboy');
+var fs = require('fs'),
+    path = require('path'),
+    parse = require('co-busboy'),
+    cfg = require('./../config.js');
 
 var allowed = ['jpg', 'png', 'gif'];
 
@@ -21,7 +22,7 @@ module.exports.add = function *(next){
         part.pipe(stream);
         this.body = {
             status: 'OK',
-            path : '/' + stream.path
+            path : cfg.url + stream.path
         };
     }
     function guid() {
@@ -36,8 +37,8 @@ module.exports.add = function *(next){
 };
 module.exports.get = function *(fname){
     if (/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(fname.split('.').slice(-2,-1))) {
-        var fs = require('fs');
-        var readStream = fs.createReadStream('images/' + fname);
+        var fs = require('fs'),
+            readStream = fs.createReadStream('images/' + fname);
         this.body = readStream;
     }
 };
