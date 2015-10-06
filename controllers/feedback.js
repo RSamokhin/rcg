@@ -48,7 +48,8 @@ module.exports.update = function * (feedbackId) {
         object.text = data['text'].toString();
     if (data['status'] !== undefined)
         object.status = data['status'].toString();
-
+    if (data['replyComment'] !== undefined)
+        object.replyComment = data['replyComment'].toString();
     object.save();
 
     this.body = object.toJSON();
