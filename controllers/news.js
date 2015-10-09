@@ -110,7 +110,7 @@ module.exports.add = function * () {
     this.body = insertedNews.toJSON();
 
     if (news['sendAlert'] && news['sendAlert'] !== 'false')
-        apns.pushToDevices('New news!');
+        apns.pushToDevices('У нас появилась новая новость!');
 };
 
 module.exports.updateNews = function * (newsId) {
@@ -155,5 +155,5 @@ module.exports.updateNews = function * (newsId) {
     this.body = news.toJSON();
 
     if (data['sendAlert'] && news['sendAlert'] !== 'false')
-        apns.pushToDevices('News update!');
+        apns.pushToDevices('У нас обновилась новость!');
 };
