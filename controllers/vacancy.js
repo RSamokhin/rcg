@@ -146,7 +146,7 @@ module.exports.add = function * () {
     this.status = 200;
 
     if (news['sendAlert'] && news['sendAlert'] !== 'false')
-        apns.pushToDevices('New vacancy!');
+        apns.pushToDevices('У нас появилась новая вакансия!');
 };
 
 module.exports.updateVacancy = function * (id) {
@@ -209,7 +209,7 @@ module.exports.updateVacancy = function * (id) {
     this.body = news.toJSON();
 
     if (data['sendAlert'] && data['sendAlert'] !== 'false')
-        apns.pushToDevices('Vacancy update!');
+        apns.pushToDevices('У нас обновилась вакансия!');
 };
 
 module.exports.addVacancyReply = function * (newsId) {
